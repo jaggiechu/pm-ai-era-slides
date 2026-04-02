@@ -1,10 +1,9 @@
 <!DOCTYPE html>
-<html lang="en">
-<head>
+<html lang="en"><head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>PM in the AI Era — UCLA</title>
-    <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700;800&amp;display=swap" rel="stylesheet">
 
     <style>
         :root {
@@ -243,11 +242,11 @@
 </head>
 <body>
 
-<div class="progress-bar" id="progressBar"></div>
-<nav class="nav-dots" id="navDots" aria-label="Slide navigation"></nav>
+<div class="progress-bar" id="progressBar" style="width: 13.3333%;"></div>
+<nav class="nav-dots" id="navDots" aria-label="Slide navigation"><button class="nav-dot"></button><button class="nav-dot active"></button><button class="nav-dot"></button><button class="nav-dot"></button><button class="nav-dot"></button><button class="nav-dot"></button><button class="nav-dot"></button><button class="nav-dot"></button><button class="nav-dot"></button><button class="nav-dot"></button><button class="nav-dot"></button><button class="nav-dot"></button><button class="nav-dot"></button><button class="nav-dot"></button><button class="nav-dot"></button></nav>
 <div class="edit-hotzone" id="editHotzone"></div>
-<button class="edit-toggle" id="editToggle" title="Edit mode (E)">Edit</button>
-<div class="edit-bar" id="editBar">
+<button class="edit-toggle show active" id="editToggle" title="Edit mode (E)">Exit Edit</button>
+<div class="edit-bar show" id="editBar">
     <span>Edit mode — click any text to edit</span>
     <div>
         <button onclick="editor.save()">Save (Ctrl+S)</button>
@@ -257,21 +256,21 @@
 
 
 <!-- ===================== SLIDE 0: TITLE ===================== -->
-<section class="slide layout-split" data-slide="0">
+<section class="slide layout-split visible" data-slide="0">
     <div class="panel-top">
         <div class="brand-tl reveal">UCLA</div>
         <div class="brand-tr reveal">April 2026</div>
-        <h1 class="reveal">Product Shaper<br>in the AI Era</h1>
-        <p class="reveal" style="margin-top: var(--element-gap); font-size: var(--subtitle-size); color: var(--text-muted-dark);">Rethinking the Role, the Craft, and Your Career</p>
+        <h1 class="reveal" contenteditable="true">Product Shaper<br>in the AI Era</h1>
+        <p class="reveal" style="margin-top: var(--element-gap); font-size: var(--subtitle-size); color: var(--text-muted-dark);" contenteditable="true">Rethinking the Role, the Craft, and Your Career</p>
     </div>
     <div class="panel-bottom">
-        <div class="two-col" style="width:100%;">
+        <div class="two-col" style="width:100%;" contenteditable="true">
             <div class="reveal">
-                <div style="font-family: var(--font-display); font-weight: 800; font-size: var(--h3-size); color: var(--text-light);">Jaggie</div>
-                <div style="font-family: var(--font-body); font-weight: 400; font-size: var(--small-size); color: var(--text-muted-light); margin-top: 0.3em;">A Non-Traditional Journey into Product</div>
+                <div style="font-family: var(--font-display); font-weight: 800; font-size: var(--h3-size); color: var(--text-light);" contenteditable="true">Jaggie</div>
+                <div style="font-family: var(--font-body); font-weight: 400; font-size: var(--small-size); color: var(--text-muted-light); margin-top: 0.3em;" contenteditable="true">A Non-Traditional Journey into Product</div>
             </div>
-            <div class="reveal" style="text-align: right;">
-                <div class="quote" style="font-size: clamp(0.9rem, 1.4vw, 1.2rem);">Job titles change. Core capabilities endure.</div>
+            <div class="reveal" style="text-align: right;" contenteditable="true">
+                <div class="quote" style="font-size: clamp(0.9rem, 1.4vw, 1.2rem);" contenteditable="true">Job titles change. Core capabilities endure.</div>
             </div>
         </div>
     </div>
@@ -279,22 +278,22 @@
 
 
 <!-- ===================== SLIDE 1: MY JOURNEY ===================== -->
-<section class="slide layout-white" data-slide="1">
-    <div class="brand-tl reveal" style="z-index:2;">My Journey</div>
-    <div class="brand-tr reveal" style="z-index:2;">AI &times; Commerce</div>
+<section class="slide layout-white visible" data-slide="1">
+    <div class="brand-tl reveal" style="z-index:2;" contenteditable="true">My Journey</div>
+    <div class="brand-tr reveal" style="z-index:2;" contenteditable="true">AI × Commerce</div>
     <div class="dna-container">
         <div class="dna-track">
-            <svg class="dna-strand dna-strand-ai" viewBox="0 0 900 400" preserveAspectRatio="none" style="width:100%;height:100%;"><path d="M 0,200 C 100,80 200,80 300,200 S 500,320 600,200 S 800,80 900,200"/></svg>
-            <svg class="dna-strand dna-strand-commerce" viewBox="0 0 900 400" preserveAspectRatio="none" style="width:100%;height:100%;"><path d="M 0,200 C 100,320 200,320 300,200 S 500,80 600,200 S 800,320 900,200"/></svg>
-            <div class="dna-node" style="left:6%;top:50%;"><div class="dna-badge" style="background:#003DA5;"><img src="assets/logos/pg.png" alt="P&G"></div><div class="dna-label">P&G / Gillette</div><div class="dna-tag commerce">Brand</div></div>
-            <div class="dna-node" style="left:17%;top:24%;"><div class="dna-badge" style="background:#f59e0b; font-size: clamp(0.4rem, 0.6vw, 0.55rem); line-height:1.15;">Used Car<br>Mktplace</div><div class="dna-label">Startup</div><div class="dna-tag commerce">Startup</div></div>
-            <div class="dna-node" style="left:28%;top:72%;"><div class="dna-badge" style="background:#6366f1;">VC</div><div class="dna-label">AI Chatbot</div><div class="dna-tag ai">AI Spark</div></div>
-            <div class="dna-node" style="left:40%;top:28%;"><div class="dna-badge" style="background:#111;"><img src="assets/logos/tiktok.png" alt="TikTok"></div><div class="dna-label">TikTok / ByteDance</div><div class="dna-tag both">AI &times; Content</div></div>
-            <div class="dna-node" style="left:50%;top:68%;"><div class="dna-badge" style="background:#8C1515;"><img src="assets/logos/stanford.png" alt="Stanford GSB"></div><div class="dna-label">Stanford GSB</div><div class="dna-tag commerce">US Move</div></div>
-            <div class="dna-node" style="left:62%;top:24%;"><div class="dna-badge" style="background:#e11d48;"><img src="assets/logos/poshmark.png" alt="Poshmark"></div><div class="dna-label">Poshmark</div><div class="dna-tag both">Search &times; ML</div></div>
-            <div class="dna-node" style="left:73%;top:72%;"><div class="dna-badge" style="background:#fff; border: 1px solid #e0e0e0;"><img src="assets/logos/kiwidrop.png" alt="KiwiDrop" style="width:75%;height:75%;"></div><div class="dna-label">Founded KiwiDrop</div><div class="dna-tag commerce">E-comm</div></div>
-            <div class="dna-node" style="left:84%;top:28%;"><div class="dna-badge" style="background:#ffffff; border: 1px solid #e0e0e0;"><img src="assets/logos/spc.png" alt="South Park Commons"></div><div class="dna-label">South Park Commons</div><div class="dna-tag ai">Explore</div></div>
-            <div class="dna-node" style="left:94%;top:58%;"><div class="dna-badge" style="background:#f0f0f0;"><img src="assets/logos/meta.png" alt="Meta" style="width:80%;height:80%;"></div><div class="dna-label">Ads &times; Gen AI</div><div class="dna-tag both">AI &times; Ads</div></div>
+            <svg class="dna-strand dna-strand-ai" viewBox="0 0 900 400" preserveAspectRatio="none" style="width:100%;height:100%;"><path d="M 0,200 C 100,80 200,80 300,200 S 500,320 600,200 S 800,80 900,200"></path></svg>
+            <svg class="dna-strand dna-strand-commerce" viewBox="0 0 900 400" preserveAspectRatio="none" style="width:100%;height:100%;"><path d="M 0,200 C 100,320 200,320 300,200 S 500,80 600,200 S 800,320 900,200"></path></svg>
+            <div class="dna-node active" style="left:6%;top:50%;" contenteditable="true"><div class="dna-badge" style="background:#003DA5;"><img src="assets/logos/pg.png" alt="P&amp;G"></div><div class="dna-label">P&amp;G / Gillette</div><div class="dna-tag commerce">Brand/CPG</div></div>
+            <div class="dna-node active" style="left:17%;top:24%;" contenteditable="true"><div class="dna-badge" style="background:#f59e0b; font-size: clamp(0.4rem, 0.6vw, 0.55rem); line-height:1.15;" contenteditable="true">Used Car<br>Mktplace</div><div class="dna-label">Startup</div><div class="dna-tag commerce">Marketplace</div></div>
+            <div class="dna-node active" style="left:28%;top:72%;" contenteditable="true"><div class="dna-badge" style="background:#6366f1;" contenteditable="true">VC</div><div class="dna-label">Strategic Bird's View AI</div><div class="dna-tag ai">AI Application</div></div>
+            <div class="dna-node active" style="left:40%;top:28%;" contenteditable="true"><div class="dna-badge" style="background:#111;"><img src="assets/logos/tiktok.png" alt="TikTok"></div><div class="dna-label">TikTok / ByteDance</div><div class="dna-tag both">AI × Content</div></div>
+            <div class="dna-node active" style="left:50%;top:68%;" contenteditable="true"><div class="dna-badge" style="background:#8C1515;"><img src="assets/logos/stanford.png" alt="Stanford GSB"></div><div class="dna-label">Stanford GSB</div><div class="dna-tag commerce">Move to the U.S,</div></div>
+            <div class="dna-node active" style="left:62%;top:24%;" contenteditable="true"><div class="dna-badge" style="background:#e11d48;"><img src="assets/logos/poshmark.png" alt="Poshmark"></div><div class="dna-label">Poshmark</div><div class="dna-tag both">Search × ML</div><div class="dna-tag both">AI x Commerce</div></div>
+            <div class="dna-node active" style="left:73%;top:72%;" contenteditable="true"><div class="dna-badge" style="background:#fff; border: 1px solid #e0e0e0;"><img src="assets/logos/kiwidrop.png" alt="KiwiDrop" style="width:75%;height:75%;"></div><div class="dna-label">Founded KiwiDrop</div><div class="dna-tag commerce">E-comm</div></div>
+            <div class="dna-node active" style="left:84%;top:28%;" contenteditable="true"><div class="dna-badge" style="background:#ffffff; border: 1px solid #e0e0e0;"><img src="assets/logos/spc.png" alt="South Park Commons"></div><div class="dna-label">South Park Commons</div><div class="dna-tag ai">Gen AI Application</div></div>
+            <div class="dna-node active" style="left:94%;top:58%;" contenteditable="true"><div class="dna-badge" style="background:#f0f0f0;"><img src="assets/logos/meta.png" alt="Meta" style="width:80%;height:80%;"></div><div class="dna-label">Ads × Gen AI</div><div class="dna-tag both">Gen AI × Ads</div></div>
         </div>
         <div class="dna-legend"><span class="leg-ai">AI</span><span class="leg-commerce">Commerce</span></div>
     </div>
@@ -302,19 +301,19 @@
 
 
 <!-- ===================== SLIDE 2: PRODUCT = TOTAL CUSTOMER EXPERIENCE ===================== -->
-<section class="slide layout-split" data-slide="2">
+<section class="slide layout-split visible" data-slide="2">
     <div class="panel-top">
         <div class="brand-tl reveal">UCLA</div>
-        <h2 class="reveal">Product = Total Customer Experience</h2>
-        <p class="reveal" style="margin-top: var(--element-gap); font-size: var(--subtitle-size); color: var(--text-muted-dark); max-width: 600px;">Not just software. The <strong>total offering</strong> a customer encounters — from discovery to delight.</p>
+        <h2 class="reveal" contenteditable="true">Product = Total Customer Experience</h2>
+        <p class="reveal" style="margin-top: var(--element-gap); font-size: var(--subtitle-size); color: var(--text-muted-dark); max-width: 600px;" contenteditable="true">Not just software. The <strong>total offering</strong> a customer encounters — from discovery to delight.</p>
     </div>
     <div class="panel-bottom">
-        <div style="width: 100%;">
-            <h3 class="reveal" style="color: var(--text-light); margin-bottom: var(--element-gap);">PM = Product Shaper</h3>
+        <div style="width: 100%;" contenteditable="true">
+            <h3 class="reveal" style="color: var(--text-light); margin-bottom: var(--element-gap);" contenteditable="true">PM = Product Shaper</h3>
             <ul class="points on-blue reveal" style="width: 100%;">
-                <li>The person who <strong>defines</strong> the product and <strong>makes the call</strong></li>
-                <li>Not a project manager. Not a ticket writer. A <strong>creator</strong></li>
-                <li>Title popularized in the Rails era — but the function is as old as commerce</li>
+                <li contenteditable="true">The person who <strong>defines</strong> the product and <strong>makes the call</strong></li>
+                <li contenteditable="true">Not a project manager. Not a ticket writer. A <strong>creator</strong></li>
+                <li contenteditable="true">Title popularized in the Rails era — but the function is as old as commerce</li>
             </ul>
         </div>
     </div>
@@ -322,23 +321,23 @@
 
 
 <!-- ===================== SLIDE 3: EVERY INDUSTRY ===================== -->
-<section class="slide layout-full" data-slide="3">
+<section class="slide layout-full visible" data-slide="3">
     <div class="slide-content">
         <div class="brand-tl reveal">UCLA</div>
-        <h2 class="reveal">Every Industry Has a Product Shaper</h2>
-        <p class="reveal" style="margin-top: var(--element-gap); font-size: var(--subtitle-size); color: var(--text-muted-dark);">Different name, different domain — same core job.</p>
-        <div class="feature-grid reveal" style="margin-top: var(--content-gap);">
+        <h2 class="reveal" contenteditable="true">Every Industry Has a Product Shaper</h2>
+        <p class="reveal" style="margin-top: var(--element-gap); font-size: var(--subtitle-size); color: var(--text-muted-dark);" contenteditable="true">Different name, different domain — same core job.</p>
+        <div class="feature-grid reveal" style="margin-top: var(--content-gap);" contenteditable="true">
             <div class="feature-card">
-                <h3>Amazon Retail</h3>
-                <p>Selection, Prime, returns, delivery speed &rarr; the "product" is the entire purchase experience</p>
+                <h3 contenteditable="true">Amazon Retail</h3>
+                <p contenteditable="true">Selection, Prime, returns, delivery speed → the "product" is the entire purchase experience</p>
             </div>
             <div class="feature-card">
-                <h3>Pharma</h3>
-                <p>Compound = product &rarr; dosage, efficacy, risk, target patient. Every decision is a tradeoff</p>
+                <h3 contenteditable="true">Pharma</h3>
+                <p contenteditable="true">Compound = product → dosage, efficacy, risk, target patient. Every decision is a tradeoff</p>
             </div>
             <div class="feature-card">
-                <h3>E-commerce / KiwiDrop</h3>
-                <p>Retention is the product &rarr; pricing, curation, trust. What makes a buyer come back?</p>
+                <h3 contenteditable="true">E-commerce / KiwiDrop</h3>
+                <p contenteditable="true">Retention is the product → pricing, curation, trust. What makes a buyer come back?</p>
             </div>
         </div>
     </div>
@@ -347,8 +346,8 @@
 
 <!-- ===================== SLIDE 4: PM IS GONE + RAMP ===================== -->
 <section class="slide layout-dark text-white" data-slide="4">
-    <div style="flex-shrink:0; padding: clamp(14px, 2vh, 24px) var(--slide-padding) clamp(6px, 1vh, 10px); display: flex; align-items: baseline; justify-content: space-between;">
-        <h2 class="reveal" style="color: var(--text-light); font-size: var(--h2-size);">"PM Is Gone." Now Hiring: <span style="color: var(--accent-blue-light);">Builders Only.</span></h2>
+    <div style="flex-shrink:0; padding: clamp(14px, 2vh, 24px) var(--slide-padding) clamp(6px, 1vh, 10px); display: flex; align-items: baseline; justify-content: space-between;" contenteditable="true">
+        <h2 class="reveal" style="color: var(--text-light); font-size: var(--h2-size);" contenteditable="true">"PM Is Gone." Now Hiring: <span style="color: var(--accent-blue-light);">Builders Only.</span></h2>
         <span class="reveal" style="font-size: var(--small-size); color: rgba(255,255,255,0.3); text-transform: uppercase; letter-spacing: 0.12em;">ramp.com/careers</span>
     </div>
     <div class="ramp-embed-wrap">
@@ -358,7 +357,7 @@
                 <div class="ramp-browser">
                     <div class="ramp-bar">
                         <div class="ramp-dot r"></div><div class="ramp-dot y"></div><div class="ramp-dot g"></div>
-                        <div class="ramp-url">&#128274; ramp.com/careers</div>
+                        <div class="ramp-url">🔒 ramp.com/careers</div>
                     </div>
                     <div class="ramp-iframe-box">
                         <iframe src="ramp-careers.html" loading="lazy" title="Ramp Careers Page"></iframe>
@@ -376,28 +375,28 @@
 <section class="slide layout-full" data-slide="5" id="strikeSlide">
     <div class="slide-content">
         <div class="brand-tl reveal">UCLA</div>
-        <h2 class="reveal">What's Actually Changing</h2>
-        <div class="num-grid reveal" style="margin-top: var(--content-gap);">
+        <h2 class="reveal" contenteditable="true">What's Actually Changing</h2>
+        <div class="num-grid reveal" style="margin-top: var(--content-gap);" contenteditable="true">
             <div class="num-card">
                 <div class="num">1</div>
-                <h3>Tasks Automated Away</h3>
-                <p><span class="strike-anim">Write PRDs</span></p>
-                <p><span class="strike-anim">Prioritize backlog</span></p>
-                <p><span class="strike-anim">Cross-team alignment docs</span></p>
-                <p style="margin-top:0.5em; color: var(--accent-blue); font-weight: 600;">What's left?</p>
+                <h3 contenteditable="true">Tasks Automated Away</h3>
+                <p contenteditable="true"><span class="strike-anim">Write PRDs</span></p>
+                <p contenteditable="true"><span class="strike-anim">Prioritize backlog</span></p>
+                <p contenteditable="true"><span class="strike-anim">Cross-team alignment docs</span></p>
+                <p style="margin-top:0.5em; color: var(--accent-blue); font-weight: 600;" contenteditable="true">What's left?</p>
             </div>
             <div class="num-card">
                 <div class="num">2</div>
-                <h3>Models Change Daily</h3>
-                <p>Old assumption:</p>
-                <p><span class="strike-anim">"Tech stays stable during a project"</span></p>
-                <p style="margin-top:0.5em;">New reality: capabilities shift <strong>mid-sprint</strong></p>
+                <h3 contenteditable="true">Models Change Daily</h3>
+                <p contenteditable="true">Old assumption:</p>
+                <p contenteditable="true"><span class="strike-anim">"Tech stays stable during a project"</span></p>
+                <p style="margin-top:0.5em;" contenteditable="true">New reality: capabilities shift <strong>mid-sprint</strong></p>
             </div>
             <div class="num-card">
                 <div class="num">3</div>
-                <h3>Non-Deterministic Output</h3>
-                <p>AI doesn't produce the same result twice</p>
-                <p style="margin-top:0.5em;">You can't spec it like traditional software &rarr; <strong>evaluation</strong> becomes a core skill</p>
+                <h3 contenteditable="true">Non-Deterministic Output</h3>
+                <p contenteditable="true">AI doesn't produce the same result twice</p>
+                <p style="margin-top:0.5em;" contenteditable="true">You can't spec it like traditional software → <strong>evaluation</strong> becomes a core skill</p>
             </div>
         </div>
     </div>
@@ -408,33 +407,33 @@
 <section class="slide layout-full" data-slide="6">
     <div class="slide-content">
         <div class="brand-tl reveal">UCLA</div>
-        <p class="reveal" style="font-size: var(--small-size); text-transform: uppercase; letter-spacing: 0.15em; color: var(--text-muted-dark); margin-bottom: var(--element-gap);">What's Different from Old-School PM</p>
-        <h2 class="reveal">Try Faster. Build Earlier. Overturn Yourself.</h2>
-        <div class="reveal" style="margin-top: var(--content-gap); width: 100%;">
+        <p class="reveal" style="font-size: var(--small-size); text-transform: uppercase; letter-spacing: 0.15em; color: var(--text-muted-dark); margin-bottom: var(--element-gap);" contenteditable="true">What's Different from Old-School PM</p>
+        <h2 class="reveal" contenteditable="true">Try Faster. Build Earlier. Overturn Yourself.</h2>
+        <div class="reveal" style="margin-top: var(--content-gap); width: 100%;" contenteditable="true">
             <div class="step-row">
                 <div class="step-num">1</div>
                 <div class="step-body">
-                    <h3>Mini prototypes, not 10-page PRDs</h3>
-                    <p>Get feasibility signal in hours, not weeks. Ship a rough version before writing the spec</p>
+                    <h3 contenteditable="true">Mini prototypes, not 10-page PRDs</h3>
+                    <p contenteditable="true">Get feasibility signal in hours, not weeks. Ship a rough version before writing the spec</p>
                 </div>
             </div>
             <div class="step-row">
                 <div class="step-num">2</div>
                 <div class="step-body">
-                    <h3>Re-evaluate after every model release</h3>
-                    <p>Workarounds for old limitations become unnecessary complexity. Kill your darlings</p>
+                    <h3 contenteditable="true">Re-evaluate after every model release</h3>
+                    <p contenteditable="true">Workarounds for old limitations become unnecessary complexity. Kill your darlings</p>
                 </div>
             </div>
             <div class="step-row">
                 <div class="step-num">3</div>
                 <div class="step-body">
-                    <h3>Unlearn your priors</h3>
-                    <p>Yesterday's best practice &rarr; today's tech debt. Be willing to throw away your own work</p>
+                    <h3 contenteditable="true">Unlearn your priors</h3>
+                    <p contenteditable="true">Yesterday's best practice → today's tech debt. Be willing to throw away your own work</p>
                 </div>
             </div>
         </div>
-        <div class="reveal" style="margin-top: var(--content-gap); padding: clamp(0.8rem, 1.5vw, 1.2rem); background: rgba(67,97,238,0.06); border-radius: 6px;">
-            <p style="font-size: var(--body-size); color: var(--accent-blue);"><strong>Example:</strong> Meta Ads creative team &mdash; shorter cycles, everyone (eng, design, DS, UXR, PM) runs small experiments <em>off-roadmap</em></p>
+        <div class="reveal" style="margin-top: var(--content-gap); padding: clamp(0.8rem, 1.5vw, 1.2rem); background: rgba(67,97,238,0.06); border-radius: 6px;" contenteditable="true">
+            <p style="font-size: var(--body-size); color: var(--accent-blue);" contenteditable="true"><strong>Example:</strong> Meta Ads creative team — shorter cycles, everyone (eng, design, DS, UXR, PM) runs small experiments <em>off-roadmap</em></p>
         </div>
     </div>
 </section>
@@ -444,30 +443,30 @@
 <section class="slide layout-full" data-slide="7">
     <div class="slide-content">
         <div class="brand-tl reveal">UCLA</div>
-        <h2 class="reveal">Eval = Trial and Error</h2>
-        <div class="reveal" style="margin-top: var(--content-gap); padding: clamp(1rem, 2vw, 1.5rem); background: rgba(67,97,238,0.06); border-radius: 6px;">
-            <p style="font-size: var(--subtitle-size); color: var(--accent-blue); font-weight: 700;">Prompt to yourself: if you were the boss reviewing your employee's work, what would your rubric be?</p>
+        <h2 class="reveal" contenteditable="true">Eval = Trial and Error</h2>
+        <div class="reveal" style="margin-top: var(--content-gap); padding: clamp(1rem, 2vw, 1.5rem); background: rgba(67,97,238,0.06); border-radius: 6px;" contenteditable="true">
+            <p style="font-size: var(--subtitle-size); color: var(--accent-blue); font-weight: 700;" contenteditable="true">Prompt to yourself: if you were the boss reviewing your employee's work, what would your rubric be?</p>
         </div>
-        <div class="reveal" style="margin-top: var(--content-gap); width: 100%;">
+        <div class="reveal" style="margin-top: var(--content-gap); width: 100%;" contenteditable="true">
             <div class="step-row">
                 <div class="step-num">1</div>
                 <div class="step-body">
-                    <h3>Rubric won't be right the first time</h3>
-                    <p>Run 100-150 samples, self-label &rarr; discover where dimensions conflict and categories blur</p>
+                    <h3 contenteditable="true">Rubric won't be right the first time</h3>
+                    <p contenteditable="true">Run 100-150 samples, self-label → discover where dimensions conflict and categories blur</p>
                 </div>
             </div>
             <div class="step-row">
                 <div class="step-num">2</div>
                 <div class="step-body">
-                    <h3>Iterate the rubric, not just the prompt</h3>
-                    <p>Fix the eval before fixing the model. The rubric <em>is</em> the product spec</p>
+                    <h3 contenteditable="true">Iterate the rubric, not just the prompt</h3>
+                    <p contenteditable="true">Fix the eval before fixing the model. The rubric <em>is</em> the product spec</p>
                 </div>
             </div>
             <div class="step-row">
                 <div class="step-num">3</div>
                 <div class="step-body">
-                    <h3>Mental model: onboarding a junior teammate</h3>
-                    <p>Not a one-time doc &mdash; continuous, structured support and calibration</p>
+                    <h3 contenteditable="true">Mental model: onboarding a junior teammate</h3>
+                    <p contenteditable="true">Not a one-time doc — continuous, structured support and calibration</p>
                 </div>
             </div>
         </div>
@@ -477,21 +476,21 @@
 
 <!-- ===================== SLIDE 8: WHICH REVISION IS EASIER? ===================== -->
 <section class="slide layout-full" data-slide="8">
-    <div class="slide-content" style="align-items: center;">
+    <div class="slide-content" style="align-items: center;" contenteditable="true">
         <div class="brand-tl reveal">UCLA</div>
-        <h2 class="reveal" style="text-align: center;">Which Revision Is Easier?</h2>
+        <h2 class="reveal" style="text-align: center;" contenteditable="true">Which Revision Is Easier?</h2>
 
-        <div class="reveal" style="margin-top: var(--content-gap); display: grid; grid-template-columns: 1fr auto 1fr; gap: clamp(1rem, 2.5vw, 2.5rem); align-items: center; max-width: 950px; width: 100%;">
+        <div class="reveal" style="margin-top: var(--content-gap); display: grid; grid-template-columns: 1fr auto 1fr; gap: clamp(1rem, 2.5vw, 2.5rem); align-items: center; max-width: 950px; width: 100%;" contenteditable="true">
             <div class="prompt-card">
                 <div class="q-mark">?</div>
-                <p>"Change the text on this<br>ketchup bottle to Mayo"</p>
+                <p contenteditable="true">"Change the text on this<br>ketchup bottle to Mayo"</p>
             </div>
             <div style="flex-shrink: 0; display: flex; align-items: center;">
                 <img src="assets/heinz-ketchup.png" alt="Heinz Ketchup ad" style="max-height: clamp(200px, 40vh, 380px); width: auto; border-radius: 8px; box-shadow: 0 4px 24px rgba(0,0,0,0.15);">
             </div>
             <div class="prompt-card">
                 <div class="q-mark">?</div>
-                <p>"Make all the text<br>bigger and bolder"</p>
+                <p contenteditable="true">"Make all the text<br>bigger and bolder"</p>
             </div>
         </div>
     </div>
@@ -502,15 +501,15 @@
 <section class="slide layout-split" data-slide="9">
     <div class="panel-top">
         <div class="brand-tl reveal">UCLA</div>
-        <p class="reveal" style="font-size: var(--small-size); text-transform: uppercase; letter-spacing: 0.15em; color: var(--text-muted-dark); margin-bottom: var(--element-gap);">Be Technical &mdash; Part I</p>
-        <h2 class="reveal">Know the Boundaries</h2>
-        <p class="reveal" style="margin-top: var(--element-gap); font-size: var(--subtitle-size); color: var(--text-muted-dark); max-width: 650px;"><strong>Level 1:</strong> What works today vs. what doesn't<br><strong>Level 2:</strong> What gets unlocked in 3-6 months &mdash; and why<br>&rarr; Build where need meets capability</p>
+        <p class="reveal" style="font-size: var(--small-size); text-transform: uppercase; letter-spacing: 0.15em; color: var(--text-muted-dark); margin-bottom: var(--element-gap);" contenteditable="true">Be Technical — Part I</p>
+        <h2 class="reveal" contenteditable="true">Know the Boundaries</h2>
+        <p class="reveal" style="margin-top: var(--element-gap); font-size: var(--subtitle-size); color: var(--text-muted-dark); max-width: 650px;" contenteditable="true"><strong>Level 1:</strong> What works today vs. what doesn't<br><strong>Level 2:</strong> What gets unlocked in 3-6 months — and why<br>→ Build where need meets capability</p>
     </div>
     <div class="panel-bottom">
         <ul class="points on-blue reveal" style="width: 100%;">
-            <li><strong>Papers:</strong> Abstract &rarr; Conclusion &rarr; main body only if curious</li>
-            <li><strong>Best stuff isn't in papers.</strong> Follow X, HN, builder communities</li>
-            <li><strong>Try first, ask second.</strong> Before asking a human, ask AI. Hands-on > hearsay</li>
+            <li contenteditable="true"><strong>Papers:</strong> Abstract → Conclusion → main body only if curious</li>
+            <li contenteditable="true"><strong>Best stuff isn't in papers.</strong> Follow X, HN, builder communities</li>
+            <li contenteditable="true"><strong>Try first, ask second.</strong> Before asking a human, ask AI. Hands-on &gt; hearsay</li>
         </ul>
     </div>
 </section>
@@ -520,29 +519,29 @@
 <section class="slide layout-full" data-slide="10">
     <div class="slide-content">
         <div class="brand-tl reveal">UCLA</div>
-        <p class="reveal" style="font-size: var(--small-size); text-transform: uppercase; letter-spacing: 0.15em; color: var(--text-muted-dark); margin-bottom: var(--element-gap);">Be Technical &mdash; Part II</p>
-        <h2 class="reveal">Use AI Well: PRD for AI</h2>
-        <p class="reveal" style="margin-top: var(--element-gap); font-size: var(--subtitle-size); color: var(--text-muted-dark);">The old artifact: PRD for engineers. The new one: <strong>PRD for AI.</strong></p>
-        <div class="reveal" style="margin-top: var(--content-gap); width: 100%;">
+        <p class="reveal" style="font-size: var(--small-size); text-transform: uppercase; letter-spacing: 0.15em; color: var(--text-muted-dark); margin-bottom: var(--element-gap);" contenteditable="true">Be Technical — Part II</p>
+        <h2 class="reveal" contenteditable="true">Use AI Well: PRD for AI</h2>
+        <p class="reveal" style="margin-top: var(--element-gap); font-size: var(--subtitle-size); color: var(--text-muted-dark);" contenteditable="true">The old artifact: PRD for engineers. The new one: <strong>PRD for AI.</strong></p>
+        <div class="reveal" style="margin-top: var(--content-gap); width: 100%;" contenteditable="true">
             <div class="step-row">
                 <div class="step-num">1</div>
                 <div class="step-body">
-                    <h3>Prompt &rarr; Context &rarr; Harness Engineering</h3>
-                    <p>Single-prompt chat is not the ceiling. What goes in Claude.md vs Memory.md vs Skills matters more</p>
+                    <h3 contenteditable="true">Prompt → Context → Harness Engineering</h3>
+                    <p contenteditable="true">Single-prompt chat is not the ceiling. What goes in Claude.md vs Memory.md vs Skills matters more</p>
                 </div>
             </div>
             <div class="step-row">
                 <div class="step-num">2</div>
                 <div class="step-body">
-                    <h3>Agent System Design</h3>
-                    <p>Multi-agent patterns: Proposer + Red-team + Judge + Critic, or domain-split agents (safety, perf, maintainability)</p>
+                    <h3 contenteditable="true">Agent System Design</h3>
+                    <p contenteditable="true">Multi-agent patterns: Proposer + Red-team + Judge + Critic, or domain-split agents (safety, perf, maintainability)</p>
                 </div>
             </div>
             <div class="step-row">
                 <div class="step-num">3</div>
                 <div class="step-body">
-                    <h3>Start with a concrete project</h3>
-                    <p>Build end-to-end with AI. A baby tracker, a content assistant. Learning by doing beats reading about it</p>
+                    <h3 contenteditable="true">Start with a concrete project</h3>
+                    <p contenteditable="true">Build end-to-end with AI. A baby tracker, a content assistant. Learning by doing beats reading about it</p>
                 </div>
             </div>
         </div>
@@ -554,24 +553,24 @@
 <section class="slide layout-full" data-slide="11">
     <div class="slide-content">
         <div class="brand-tl reveal">UCLA</div>
-        <h2 class="reveal">Core Capabilities Beyond Building</h2>
-        <p class="reveal" style="margin-top: var(--element-gap); font-size: var(--subtitle-size); color: var(--text-muted-dark);">AI can build. These are what it can't replace.</p>
-        <div class="cap-grid reveal" style="margin-top: var(--content-gap);">
+        <h2 class="reveal" contenteditable="true">Core Capabilities Beyond Building</h2>
+        <p class="reveal" style="margin-top: var(--element-gap); font-size: var(--subtitle-size); color: var(--text-muted-dark);" contenteditable="true">AI can build. These are what it can't replace.</p>
+        <div class="cap-grid reveal" style="margin-top: var(--content-gap);" contenteditable="true">
             <div class="cap-card">
-                <h3>Domain Expertise</h3>
-                <p>Cold-start advantage &rarr; but window shrinking<br>LLMs learn fast &rarr; unique insight bar keeps rising</p>
+                <h3 contenteditable="true">Domain Expertise</h3>
+                <p contenteditable="true">Cold-start advantage → but window shrinking<br>LLMs learn fast → unique insight bar keeps rising</p>
             </div>
             <div class="cap-card">
-                <h3>Taste</h3>
-                <p>Seen great products, felt great experiences<br>That calibration is lived, not prompted</p>
+                <h3 contenteditable="true">Taste</h3>
+                <p contenteditable="true">Seen great products, felt great experiences<br>That calibration is lived, not prompted</p>
             </div>
             <div class="cap-card">
-                <h3>Tinker</h3>
-                <p>Learn fast by doing, not reading<br>Build &rarr; hit wall &rarr; iterate. The muscle</p>
+                <h3 contenteditable="true">Tinker</h3>
+                <p contenteditable="true">Learn fast by doing, not reading<br>Build → hit wall → iterate. The muscle</p>
             </div>
             <div class="cap-card">
-                <h3>Architecture</h3>
-                <p>Design systems, not patches<br>Patches don't compound. Architecture does</p>
+                <h3 contenteditable="true">Architecture</h3>
+                <p contenteditable="true">Design systems, not patches<br>Patches don't compound. Architecture does</p>
             </div>
         </div>
     </div>
@@ -582,22 +581,22 @@
 <section class="slide layout-full" data-slide="12">
     <div class="slide-content">
         <div class="brand-tl reveal">UCLA</div>
-        <h2 class="reveal">What Hasn't Changed</h2>
-        <div class="num-grid reveal" style="margin-top: var(--content-gap);">
+        <h2 class="reveal" contenteditable="true">What Hasn't Changed</h2>
+        <div class="num-grid reveal" style="margin-top: var(--content-gap);" contenteditable="true">
             <div class="num-card">
-                <div class="num" style="color: #10b981;">01</div>
-                <h3>Curiosity &amp; Empathy</h3>
-                <p>The starting point for every great product<br>No model simulates genuine curiosity</p>
+                <div class="num" style="color: #10b981;" contenteditable="true">01</div>
+                <h3 contenteditable="true">Curiosity &amp; Empathy</h3>
+                <p contenteditable="true">The starting point for every great product<br>No model simulates genuine curiosity</p>
             </div>
             <div class="num-card">
-                <div class="num" style="color: #10b981;">02</div>
-                <h3>Think Deeper / Synthesize</h3>
-                <p>See the essence &rarr; extract structure &rarr; design systems<br>AI generates. You <strong>synthesize</strong></p>
+                <div class="num" style="color: #10b981;" contenteditable="true">02</div>
+                <h3 contenteditable="true">Think Deeper / Synthesize</h3>
+                <p contenteditable="true">See the essence → extract structure → design systems<br>AI generates. You <strong>synthesize</strong></p>
             </div>
             <div class="num-card">
-                <div class="num" style="color: #10b981;">03</div>
-                <h3>Influence &amp; Persuasion</h3>
-                <p>Attention is expensive. Supply is infinite<br>GTM is the bottleneck. Content = product</p>
+                <div class="num" style="color: #10b981;" contenteditable="true">03</div>
+                <h3 contenteditable="true">Influence &amp; Persuasion</h3>
+                <p contenteditable="true">Attention is expensive. Supply is infinite<br>GTM is the bottleneck. Content = product</p>
             </div>
         </div>
     </div>
@@ -606,16 +605,16 @@
 
 <!-- ===================== SLIDE 13: WHAT TO DO NOW ===================== -->
 <section class="slide layout-dark text-white" data-slide="13">
-    <div class="slide-content" style="align-items: center; text-align: center; max-width: 800px; margin: 0 auto;">
-        <h2 class="reveal" style="color: var(--text-light); font-size: var(--h2-size);">What to Do Now</h2>
-        <div class="reveal" style="margin-top: var(--content-gap); display: flex; gap: clamp(1.5rem, 3vw, 3rem); flex-wrap: wrap; justify-content: center; text-align: left;">
-            <div style="flex: 1; min-width: 280px; padding: clamp(1.2rem, 2.5vw, 2rem); border: 1px solid rgba(255,255,255,0.12); border-radius: 6px;">
-                <h3 style="color: var(--accent-blue-light); font-size: var(--h3-size); margin-bottom: 0.5em;">Short Term</h3>
-                <p style="color: var(--text-muted-light); font-size: var(--body-size);">Make yourself a <strong style="color:#fff;">one-person powerhouse</strong><br>Close the loop end-to-end<br>Be 60% competent at every function</p>
+    <div class="slide-content" style="align-items: center; text-align: center; max-width: 800px; margin: 0 auto;" contenteditable="true">
+        <h2 class="reveal" style="color: var(--text-light); font-size: var(--h2-size);" contenteditable="true">What to Do Now</h2>
+        <div class="reveal" style="margin-top: var(--content-gap); display: flex; gap: clamp(1.5rem, 3vw, 3rem); flex-wrap: wrap; justify-content: center; text-align: left;" contenteditable="true">
+            <div style="flex: 1; min-width: 280px; padding: clamp(1.2rem, 2.5vw, 2rem); border: 1px solid rgba(255,255,255,0.12); border-radius: 6px;" contenteditable="true">
+                <h3 style="color: var(--accent-blue-light); font-size: var(--h3-size); margin-bottom: 0.5em;" contenteditable="true">Short Term</h3>
+                <p style="color: var(--text-muted-light); font-size: var(--body-size);" contenteditable="true">Make yourself a <strong style="color:#fff;">one-person powerhouse</strong><br>Close the loop end-to-end<br>Be 60% competent at every function</p>
             </div>
-            <div style="flex: 1; min-width: 280px; padding: clamp(1.2rem, 2.5vw, 2rem); border: 1px solid rgba(255,255,255,0.12); border-radius: 6px;">
-                <h3 style="color: var(--accent-blue-light); font-size: var(--h3-size); margin-bottom: 0.5em;">Long Term</h3>
-                <p style="color: var(--text-muted-light); font-size: var(--body-size);">Don't cling to <strong style="color:#fff;">"Product Manager"</strong><br>Be a product shaper<br>Focus on taste, strategy, influence</p>
+            <div style="flex: 1; min-width: 280px; padding: clamp(1.2rem, 2.5vw, 2rem); border: 1px solid rgba(255,255,255,0.12); border-radius: 6px;" contenteditable="true">
+                <h3 style="color: var(--accent-blue-light); font-size: var(--h3-size); margin-bottom: 0.5em;" contenteditable="true">Long Term</h3>
+                <p style="color: var(--text-muted-light); font-size: var(--body-size);" contenteditable="true">Don't cling to <strong style="color:#fff;">"Product Manager"</strong><br>Be a product shaper<br>Focus on taste, strategy, influence</p>
             </div>
         </div>
     </div>
@@ -627,17 +626,17 @@
     <div class="panel-top">
         <div class="brand-tl">UCLA</div>
         <div class="brand-tr">April 2026</div>
-        <h1 class="reveal">Thank You. Let's Chat.</h1>
-        <p class="reveal" style="margin-top: var(--element-gap); font-size: var(--subtitle-size); color: var(--text-muted-dark);">Q&A — ask me anything about PM, AI, career, or life.</p>
+        <h1 class="reveal" contenteditable="true">Thank You. Let's Chat.</h1>
+        <p class="reveal" style="margin-top: var(--element-gap); font-size: var(--subtitle-size); color: var(--text-muted-dark);" contenteditable="true">Q&amp;A — ask me anything about PM, AI, career, or life.</p>
     </div>
     <div class="panel-bottom">
-        <div class="two-col reveal" style="width: 100%;">
+        <div class="two-col reveal" style="width: 100%;" contenteditable="true">
             <div>
-                <div style="font-family: var(--font-display); font-weight: 800; font-size: var(--h3-size); color: var(--text-light);">Jaggie</div>
-                <div style="font-family: var(--font-body); font-size: var(--small-size); color: var(--text-muted-light); margin-top: 0.3em;">jaggiechu@gmail.com</div>
+                <div style="font-family: var(--font-display); font-weight: 800; font-size: var(--h3-size); color: var(--text-light);" contenteditable="true">Jaggie</div>
+                <div style="font-family: var(--font-body); font-size: var(--small-size); color: var(--text-muted-light); margin-top: 0.3em;" contenteditable="true">jaggiechu@gmail.com</div>
             </div>
-            <div style="text-align: right;">
-                <div style="font-family: var(--font-body); font-size: var(--small-size); color: var(--text-muted-light);">Product Shaper</div>
+            <div style="text-align: right;" contenteditable="true">
+                <div style="font-family: var(--font-body); font-size: var(--small-size); color: var(--text-muted-light);" contenteditable="true">Product Shaper</div>
             </div>
         </div>
     </div>
@@ -773,5 +772,6 @@
     });
 </script>
 
-</body>
-</html>
+
+
+</body></html>
