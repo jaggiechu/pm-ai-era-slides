@@ -80,15 +80,8 @@
         .layout-blue .slide-content { justify-content: center; }
         .layout-dark { background: var(--bg-dark); }
         .layout-dark .slide-content { justify-content: center; }
-
-        /* Full-page layout: title left, content fills */
-        .layout-full {
-            background: var(--bg-white);
-        }
-        .layout-full .slide-content {
-            justify-content: center;
-            padding: var(--slide-padding);
-        }
+        .layout-full { background: var(--bg-white); }
+        .layout-full .slide-content { justify-content: center; padding: var(--slide-padding); }
 
         /* Typography */
         h1 { font-family: var(--font-display); font-weight: 800; font-size: var(--title-size); line-height: 0.95; letter-spacing: -0.03em; color: var(--text-dark); }
@@ -103,19 +96,12 @@
 
         .section-num { font-family: var(--font-display); font-weight: 800; font-size: clamp(4rem, 10vw, 8rem); color: rgba(0,0,0,0.04); line-height: 1; position: absolute; top: var(--slide-padding); right: var(--slide-padding); }
 
-        /* Big bullet points */
+        /* Bullet points */
         .points { list-style: none; display: flex; flex-direction: column; gap: clamp(0.8rem, 1.8vw, 1.5rem); }
         .points li { display: flex; align-items: flex-start; gap: clamp(0.6rem, 1.2vw, 1rem); font-family: var(--font-body); font-size: var(--body-size); font-weight: 500; line-height: 1.5; }
         .points li::before { content: ''; width: clamp(6px, 0.6vw, 8px); height: clamp(6px, 0.6vw, 8px); background: var(--accent-blue); border-radius: 2px; flex-shrink: 0; margin-top: 0.55em; }
         .points.on-blue li::before { background: var(--text-light); }
         .points.on-blue li { color: rgba(255,255,255,0.9); }
-        .points.on-dark li::before { background: var(--accent-blue-light); }
-        .points.on-dark li { color: rgba(255,255,255,0.8); }
-
-        /* Large points for full-page slides */
-        .points-lg { list-style: none; display: flex; flex-direction: column; gap: clamp(1.2rem, 2.5vw, 2rem); }
-        .points-lg li { display: flex; align-items: flex-start; gap: clamp(0.8rem, 1.5vw, 1.2rem); font-family: var(--font-body); font-size: clamp(1rem, 1.8vw, 1.4rem); font-weight: 500; line-height: 1.45; color: var(--text-dark); }
-        .points-lg li::before { content: ''; width: clamp(8px, 0.8vw, 10px); height: clamp(8px, 0.8vw, 10px); background: var(--accent-blue); border-radius: 2px; flex-shrink: 0; margin-top: 0.5em; }
 
         .feature-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(min(100%, 280px), 1fr)); gap: clamp(0.8rem, 1.5vw, 1.5rem); }
         .feature-card { padding: clamp(1rem, 2vw, 1.5rem); border: 2px solid rgba(0,0,0,0.06); border-radius: 4px; }
@@ -176,8 +162,22 @@
         .dna-legend .leg-ai::before { background: var(--accent-blue); }
         .dna-legend .leg-commerce::before { background: #10b981; }
 
-        /* Strikethrough */
-        .struck { text-decoration: line-through; text-decoration-color: #e53e3e; text-decoration-thickness: 3px; opacity: 0.5; }
+        /* Animated strikethrough */
+        .strike-anim {
+            position: relative; display: inline;
+        }
+        .strike-anim::after {
+            content: ''; position: absolute; left: 0; top: 50%;
+            width: 0; height: 3px; background: #e53e3e;
+            transition: width 0.6s var(--ease-out-expo);
+        }
+        .strike-anim.struck-active::after {
+            width: 100%;
+        }
+        .strike-anim.struck-active {
+            opacity: 0.45;
+            transition: opacity 0.4s ease 0.3s;
+        }
 
         /* Ramp iframe */
         .ramp-embed-wrap { flex: 1; display: flex; flex-direction: column; align-items: center; padding: 0 var(--slide-padding) var(--slide-padding); min-height: 0; }
@@ -204,6 +204,22 @@
         .num-card h3 { margin-bottom: 0.4em; }
         .num-card p { font-size: var(--body-size); }
 
+        /* Step cards — full-width horizontal rows */
+        .step-row {
+            display: flex; align-items: flex-start; gap: clamp(1rem, 2vw, 1.5rem);
+            padding: clamp(0.8rem, 1.5vw, 1.2rem) 0;
+            border-bottom: 1px solid rgba(0,0,0,0.06);
+        }
+        .step-row:last-child { border-bottom: none; }
+        .step-num {
+            font-family: var(--font-display); font-weight: 800;
+            font-size: clamp(1.5rem, 3vw, 2.5rem); color: var(--accent-blue);
+            line-height: 1; flex-shrink: 0; width: clamp(2rem, 3.5vw, 3rem);
+        }
+        .step-body { flex: 1; }
+        .step-body h3 { font-size: var(--h3-size); margin-bottom: 0.2em; }
+        .step-body p { font-size: var(--body-size); color: var(--text-muted-dark); }
+
         /* Prompt card for eval slide */
         .prompt-card {
             background: rgba(0,0,0,0.03); border: 2px solid rgba(0,0,0,0.06);
@@ -216,7 +232,7 @@
         }
         .prompt-card p { font-size: clamp(0.9rem, 1.3vw, 1.1rem); font-weight: 600; color: var(--text-dark); }
 
-        /* Four-card grid with arrows */
+        /* Four-card grid with left border */
         .cap-grid { display: grid; grid-template-columns: 1fr 1fr; gap: clamp(1rem, 2vw, 1.8rem); width: 100%; }
         @media (max-width: 600px) { .cap-grid { grid-template-columns: 1fr; } }
         .cap-card { padding: clamp(1rem, 2vw, 1.5rem); border-left: 4px solid var(--accent-blue); }
@@ -328,7 +344,7 @@
 </section>
 
 
-<!-- ===================== SLIDE 4: PM IS GONE + RAMP (MERGED) ===================== -->
+<!-- ===================== SLIDE 4: PM IS GONE + RAMP ===================== -->
 <section class="slide layout-dark text-white" data-slide="4">
     <div style="flex-shrink:0; padding: clamp(14px, 2vh, 24px) var(--slide-padding) clamp(6px, 1vh, 10px); display: flex; align-items: baseline; justify-content: space-between;">
         <h2 class="reveal" style="color: var(--text-light); font-size: var(--h2-size);">"PM Is Gone." Now Hiring: <span style="color: var(--accent-blue-light);">Builders Only.</span></h2>
@@ -355,8 +371,8 @@
 </section>
 
 
-<!-- ===================== SLIDE 5: WHAT'S ACTUALLY CHANGING ===================== -->
-<section class="slide layout-full" data-slide="5">
+<!-- ===================== SLIDE 5: WHAT'S ACTUALLY CHANGING (animated strikethrough) ===================== -->
+<section class="slide layout-full" data-slide="5" id="strikeSlide">
     <div class="slide-content">
         <div class="brand-tl reveal">UCLA</div>
         <h2 class="reveal">What's Actually Changing</h2>
@@ -364,16 +380,16 @@
             <div class="num-card">
                 <div class="num">1</div>
                 <h3>Tasks Automated Away</h3>
-                <p><span class="struck">Write PRDs</span></p>
-                <p><span class="struck">Prioritize backlog</span></p>
-                <p><span class="struck">Cross-team alignment docs</span></p>
+                <p><span class="strike-anim">Write PRDs</span></p>
+                <p><span class="strike-anim">Prioritize backlog</span></p>
+                <p><span class="strike-anim">Cross-team alignment docs</span></p>
                 <p style="margin-top:0.5em; color: var(--accent-blue); font-weight: 600;">What's left?</p>
             </div>
             <div class="num-card">
                 <div class="num">2</div>
                 <h3>Models Change Daily</h3>
                 <p>Old assumption:</p>
-                <p><span class="struck">"Tech stays stable during a project"</span></p>
+                <p><span class="strike-anim">"Tech stays stable during a project"</span></p>
                 <p style="margin-top:0.5em;">New reality: capabilities shift <strong>mid-sprint</strong></p>
             </div>
             <div class="num-card">
@@ -393,12 +409,30 @@
         <div class="brand-tl reveal">UCLA</div>
         <p class="reveal" style="font-size: var(--small-size); text-transform: uppercase; letter-spacing: 0.15em; color: var(--text-muted-dark); margin-bottom: var(--element-gap);">What's Different from Old-School PM</p>
         <h2 class="reveal">Try Faster. Build Earlier. Overturn Yourself.</h2>
-        <ul class="points-lg reveal" style="margin-top: var(--content-gap); max-width: 900px;">
-            <li><strong>Mini prototypes, not 10-page PRDs.</strong> Get feasibility signal in hours, not weeks</li>
-            <li><strong>Re-evaluate after every model release.</strong> Workarounds for old limitations become unnecessary complexity</li>
-            <li><strong>Unlearn your priors.</strong> Yesterday's best practice can be today's tech debt. Throw away your own work</li>
-        </ul>
-        <div class="reveal" style="margin-top: var(--content-gap); padding: clamp(1rem, 2vw, 1.5rem); background: rgba(67,97,238,0.06); border-radius: 6px; max-width: 900px;">
+        <div class="reveal" style="margin-top: var(--content-gap); width: 100%;">
+            <div class="step-row">
+                <div class="step-num">1</div>
+                <div class="step-body">
+                    <h3>Mini prototypes, not 10-page PRDs</h3>
+                    <p>Get feasibility signal in hours, not weeks. Ship a rough version before writing the spec</p>
+                </div>
+            </div>
+            <div class="step-row">
+                <div class="step-num">2</div>
+                <div class="step-body">
+                    <h3>Re-evaluate after every model release</h3>
+                    <p>Workarounds for old limitations become unnecessary complexity. Kill your darlings</p>
+                </div>
+            </div>
+            <div class="step-row">
+                <div class="step-num">3</div>
+                <div class="step-body">
+                    <h3>Unlearn your priors</h3>
+                    <p>Yesterday's best practice &rarr; today's tech debt. Be willing to throw away your own work</p>
+                </div>
+            </div>
+        </div>
+        <div class="reveal" style="margin-top: var(--content-gap); padding: clamp(0.8rem, 1.5vw, 1.2rem); background: rgba(67,97,238,0.06); border-radius: 6px;">
             <p style="font-size: var(--body-size); color: var(--accent-blue);"><strong>Example:</strong> Meta Ads creative team &mdash; shorter cycles, everyone (eng, design, DS, UXR, PM) runs small experiments <em>off-roadmap</em></p>
         </div>
     </div>
@@ -410,22 +444,38 @@
     <div class="slide-content">
         <div class="brand-tl reveal">UCLA</div>
         <h2 class="reveal">Eval = Trial and Error</h2>
-
-        <div class="reveal" style="margin-top: var(--content-gap); padding: clamp(1rem, 2vw, 1.5rem); background: rgba(67,97,238,0.06); border-radius: 6px; max-width: 900px;">
+        <div class="reveal" style="margin-top: var(--content-gap); padding: clamp(1rem, 2vw, 1.5rem); background: rgba(67,97,238,0.06); border-radius: 6px;">
             <p style="font-size: var(--subtitle-size); color: var(--accent-blue); font-weight: 700;">Prompt to yourself: if you were the boss reviewing your employee's work, what would your rubric be?</p>
         </div>
-
-        <ul class="points-lg reveal" style="margin-top: var(--content-gap); max-width: 900px;">
-            <li><strong>Rubric won't be right the first time.</strong> Run 100-150 samples, self-label, discover where dimensions conflict and categories blur</li>
-            <li><strong>Iterate the rubric, not just the prompt.</strong> Fix the eval before fixing the model</li>
-            <li><strong>Mental model: onboarding a junior teammate.</strong> Not a one-time doc — continuous, structured support and calibration</li>
-        </ul>
+        <div class="reveal" style="margin-top: var(--content-gap); width: 100%;">
+            <div class="step-row">
+                <div class="step-num">1</div>
+                <div class="step-body">
+                    <h3>Rubric won't be right the first time</h3>
+                    <p>Run 100-150 samples, self-label &rarr; discover where dimensions conflict and categories blur</p>
+                </div>
+            </div>
+            <div class="step-row">
+                <div class="step-num">2</div>
+                <div class="step-body">
+                    <h3>Iterate the rubric, not just the prompt</h3>
+                    <p>Fix the eval before fixing the model. The rubric <em>is</em> the product spec</p>
+                </div>
+            </div>
+            <div class="step-row">
+                <div class="step-num">3</div>
+                <div class="step-body">
+                    <h3>Mental model: onboarding a junior teammate</h3>
+                    <p>Not a one-time doc &mdash; continuous, structured support and calibration</p>
+                </div>
+            </div>
+        </div>
     </div>
 </section>
 
 
-<!-- ===================== SLIDE 7b: WHICH REVISION IS EASIER? ===================== -->
-<section class="slide layout-full" data-slide="7b">
+<!-- ===================== SLIDE 8: WHICH REVISION IS EASIER? ===================== -->
+<section class="slide layout-full" data-slide="8">
     <div class="slide-content" style="align-items: center;">
         <div class="brand-tl reveal">UCLA</div>
         <h2 class="reveal" style="text-align: center;">Which Revision Is Easier?</h2>
@@ -435,11 +485,9 @@
                 <div class="q-mark">?</div>
                 <p>"Change the text on this<br>ketchup bottle to Mayo"</p>
             </div>
-
             <div style="flex-shrink: 0; display: flex; align-items: center;">
                 <img src="assets/heinz-ketchup.png" alt="Heinz Ketchup ad" style="max-height: clamp(200px, 40vh, 380px); width: auto; border-radius: 8px; box-shadow: 0 4px 24px rgba(0,0,0,0.15);">
             </div>
-
             <div class="prompt-card">
                 <div class="q-mark">?</div>
                 <p>"Make all the text<br>bigger and bolder"</p>
@@ -449,11 +497,12 @@
 </section>
 
 
-<!-- ===================== SLIDE 8: BE TECHNICAL ===================== -->
-<section class="slide layout-split" data-slide="8">
+<!-- ===================== SLIDE 9: BE TECHNICAL I ===================== -->
+<section class="slide layout-split" data-slide="9">
     <div class="panel-top">
         <div class="brand-tl reveal">UCLA</div>
-        <h2 class="reveal">Be Technical: Know the Boundaries</h2>
+        <p class="reveal" style="font-size: var(--small-size); text-transform: uppercase; letter-spacing: 0.15em; color: var(--text-muted-dark); margin-bottom: var(--element-gap);">Be Technical &mdash; Part I</p>
+        <h2 class="reveal">Know the Boundaries</h2>
         <p class="reveal" style="margin-top: var(--element-gap); font-size: var(--subtitle-size); color: var(--text-muted-dark); max-width: 650px;"><strong>Level 1:</strong> What works today vs. what doesn't<br><strong>Level 2:</strong> What gets unlocked in 3-6 months &mdash; and why<br>&rarr; Build where need meets capability</p>
     </div>
     <div class="panel-bottom">
@@ -466,23 +515,42 @@
 </section>
 
 
-<!-- ===================== SLIDE 9: USE AI WELL ===================== -->
-<section class="slide layout-full" data-slide="9">
+<!-- ===================== SLIDE 10: BE TECHNICAL II ===================== -->
+<section class="slide layout-full" data-slide="10">
     <div class="slide-content">
         <div class="brand-tl reveal">UCLA</div>
+        <p class="reveal" style="font-size: var(--small-size); text-transform: uppercase; letter-spacing: 0.15em; color: var(--text-muted-dark); margin-bottom: var(--element-gap);">Be Technical &mdash; Part II</p>
         <h2 class="reveal">Use AI Well: PRD for AI</h2>
         <p class="reveal" style="margin-top: var(--element-gap); font-size: var(--subtitle-size); color: var(--text-muted-dark);">The old artifact: PRD for engineers. The new one: <strong>PRD for AI.</strong></p>
-        <ul class="points-lg reveal" style="margin-top: var(--content-gap); max-width: 900px;">
-            <li><strong>Prompt &rarr; Context &rarr; Harness Engineering</strong> &mdash; single-prompt chat is not the ceiling</li>
-            <li><strong>Agent System Design</strong> &mdash; Proposer + Red-team + Judge + Critic, or domain-split agents</li>
-            <li><strong>Start with a concrete project</strong> &mdash; build end-to-end with AI. A baby tracker, a content assistant. Learning by doing</li>
-        </ul>
+        <div class="reveal" style="margin-top: var(--content-gap); width: 100%;">
+            <div class="step-row">
+                <div class="step-num">1</div>
+                <div class="step-body">
+                    <h3>Prompt &rarr; Context &rarr; Harness Engineering</h3>
+                    <p>Single-prompt chat is not the ceiling. What goes in Claude.md vs Memory.md vs Skills matters more</p>
+                </div>
+            </div>
+            <div class="step-row">
+                <div class="step-num">2</div>
+                <div class="step-body">
+                    <h3>Agent System Design</h3>
+                    <p>Multi-agent patterns: Proposer + Red-team + Judge + Critic, or domain-split agents (safety, perf, maintainability)</p>
+                </div>
+            </div>
+            <div class="step-row">
+                <div class="step-num">3</div>
+                <div class="step-body">
+                    <h3>Start with a concrete project</h3>
+                    <p>Build end-to-end with AI. A baby tracker, a content assistant. Learning by doing beats reading about it</p>
+                </div>
+            </div>
+        </div>
     </div>
 </section>
 
 
-<!-- ===================== SLIDE 10: CORE CAPABILITIES BEYOND BUILDING ===================== -->
-<section class="slide layout-full" data-slide="10">
+<!-- ===================== SLIDE 11: CORE CAPABILITIES BEYOND BUILDING ===================== -->
+<section class="slide layout-full" data-slide="11">
     <div class="slide-content">
         <div class="brand-tl reveal">UCLA</div>
         <h2 class="reveal">Core Capabilities Beyond Building</h2>
@@ -509,8 +577,8 @@
 </section>
 
 
-<!-- ===================== SLIDE 11: WHAT HASN'T CHANGED ===================== -->
-<section class="slide layout-full" data-slide="11">
+<!-- ===================== SLIDE 12: WHAT HASN'T CHANGED ===================== -->
+<section class="slide layout-full" data-slide="12">
     <div class="slide-content">
         <div class="brand-tl reveal">UCLA</div>
         <h2 class="reveal">What Hasn't Changed</h2>
@@ -535,8 +603,8 @@
 </section>
 
 
-<!-- ===================== SLIDE 12: WHAT TO DO NOW ===================== -->
-<section class="slide layout-dark text-white" data-slide="12">
+<!-- ===================== SLIDE 13: WHAT TO DO NOW ===================== -->
+<section class="slide layout-dark text-white" data-slide="13">
     <div class="slide-content" style="align-items: center; text-align: center; max-width: 800px; margin: 0 auto;">
         <h2 class="reveal" style="color: var(--text-light); font-size: var(--h2-size);">What to Do Now</h2>
         <div class="reveal" style="margin-top: var(--content-gap); display: flex; gap: clamp(1.5rem, 3vw, 3rem); flex-wrap: wrap; justify-content: center; text-align: left;">
@@ -553,8 +621,8 @@
 </section>
 
 
-<!-- ===================== SLIDE 13: Q&A ===================== -->
-<section class="slide layout-split" data-slide="13">
+<!-- ===================== SLIDE 14: Q&A ===================== -->
+<section class="slide layout-split" data-slide="14">
     <div class="panel-top">
         <div class="brand-tl">UCLA</div>
         <div class="brand-tr">April 2026</div>
@@ -646,7 +714,7 @@
     }
 
     class InlineEditor {
-        constructor() { this.isActive = false; this.storageKey = 'pm-ai-era-v3'; localStorage.removeItem('pm-ai-era-v2'); localStorage.removeItem('pm-ai-era-edits'); this.loadSaved(); }
+        constructor() { this.isActive = false; this.storageKey = 'pm-ai-era-v4'; ['pm-ai-era-v3','pm-ai-era-v2','pm-ai-era-edits'].forEach(k => localStorage.removeItem(k)); this.loadSaved(); }
         toggleEditMode() {
             this.isActive = !this.isActive;
             const toggle = document.getElementById('editToggle'), bar = document.getElementById('editBar');
@@ -673,6 +741,20 @@
         new IntersectionObserver((entries) => {
             entries.forEach(entry => { if (entry.isIntersecting) dnaSlide.querySelectorAll('.dna-node').forEach((n,i) => setTimeout(() => n.classList.add('active'), i*120)); });
         }, { threshold: 0.3 }).observe(dnaSlide);
+    }
+
+    /* Animated strikethrough on scroll */
+    const strikeSlide = document.getElementById('strikeSlide');
+    if (strikeSlide) {
+        new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    strikeSlide.querySelectorAll('.strike-anim').forEach((el, i) => {
+                        setTimeout(() => el.classList.add('struck-active'), 600 + i * 300);
+                    });
+                }
+            });
+        }, { threshold: 0.4 }).observe(strikeSlide);
     }
 
     /* Edit hotzone */
