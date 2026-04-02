@@ -1,0 +1,395 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Titles Are Gone — Ramp Case Study</title>
+    <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700;800&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        html, body { height: 100%; overflow: hidden; }
+
+        body {
+            font-family: 'Manrope', sans-serif;
+            background: #0a0a0a;
+            color: #fff;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+        }
+
+        /* ─── Slide wrapper ─── */
+        .slide {
+            width: 100vw;
+            height: 100vh;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            padding: clamp(18px, 2.5vh, 32px) clamp(24px, 3vw, 56px);
+            position: relative;
+        }
+
+        /* ─── Compact top bar: title on left ─── */
+        .top-bar {
+            width: 100%;
+            flex-shrink: 0;
+            display: flex;
+            align-items: baseline;
+            justify-content: space-between;
+            margin-bottom: clamp(12px, 1.8vh, 24px);
+        }
+
+        .top-bar h2 {
+            font-family: 'Manrope', sans-serif;
+            font-weight: 800;
+            font-size: clamp(1.1rem, 2.4vw, 2rem);
+            letter-spacing: -0.02em;
+            color: #fff;
+            line-height: 1.1;
+        }
+        .top-bar h2 .accent { color: #d4e520; }
+
+        .top-bar .tag {
+            font-size: clamp(0.55rem, 0.7vw, 0.68rem);
+            text-transform: uppercase;
+            letter-spacing: 0.15em;
+            color: rgba(255,255,255,0.3);
+            font-weight: 600;
+            white-space: nowrap;
+        }
+
+        /* ─── Laptop frame ─── */
+        .laptop {
+            flex: 1;
+            width: 100%;
+            max-width: 1200px;
+            display: flex;
+            flex-direction: column;
+            min-height: 0;
+        }
+
+        /* Screen bezel */
+        .laptop-screen {
+            flex: 1;
+            background: #1c1c1e;
+            border-radius: 12px 12px 0 0;
+            padding: 6px 6px 0;
+            display: flex;
+            flex-direction: column;
+            min-height: 0;
+            box-shadow: 0 -2px 40px rgba(0,0,0,0.6);
+        }
+
+        /* Camera notch */
+        .laptop-camera {
+            flex-shrink: 0;
+            height: 6px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            margin-bottom: 3px;
+        }
+        .laptop-camera::before {
+            content: '';
+            width: 6px; height: 6px;
+            border-radius: 50%;
+            background: #2a2a2e;
+            border: 1px solid #333;
+        }
+
+        /* Browser chrome inside screen */
+        .browser {
+            flex: 1;
+            border-radius: 8px 8px 0 0;
+            overflow: hidden;
+            background: #fff;
+            display: flex;
+            flex-direction: column;
+            min-height: 0;
+        }
+
+        .browser-bar {
+            flex-shrink: 0;
+            height: clamp(28px, 3.5vh, 36px);
+            background: #f0eeeb;
+            display: flex;
+            align-items: center;
+            padding: 0 14px;
+            gap: 7px;
+            border-bottom: 1px solid #e0ddd8;
+        }
+
+        .dot { width: 10px; height: 10px; border-radius: 50%; }
+        .dot.r { background: #ff5f57; }
+        .dot.y { background: #febc2e; }
+        .dot.g { background: #28c840; }
+
+        .url-bar {
+            margin-left: 14px;
+            flex: 1;
+            max-width: 380px;
+            background: #fff;
+            border-radius: 6px;
+            padding: 4px 12px;
+            font-family: 'Inter', sans-serif;
+            font-size: clamp(0.58rem, 0.72vw, 0.72rem);
+            color: #999;
+            display: flex;
+            align-items: center;
+            gap: 5px;
+            border: 1px solid #e5e3df;
+        }
+        .url-bar .lock { font-size: 0.72em; }
+
+        /* Page viewport */
+        .browser-viewport {
+            flex: 1;
+            overflow: hidden;
+            position: relative;
+            background: #fff;
+        }
+
+        /* The ramp page rendered at 1440px, scaled down */
+        .ramp-page {
+            position: absolute;
+            top: 0; left: 0;
+            width: 1440px;
+            transform-origin: top left;
+            font-family: 'Inter', sans-serif;
+            color: #1a1a1a;
+        }
+
+        /* Laptop base/hinge */
+        .laptop-base {
+            flex-shrink: 0;
+            height: clamp(10px, 1.4vh, 18px);
+            background: linear-gradient(to bottom, #2a2a2e 0%, #3a3a3e 40%, #2a2a2e 100%);
+            border-radius: 0 0 4px 4px;
+            margin: 0 -2%;
+            position: relative;
+        }
+        .laptop-base::before {
+            content: '';
+            position: absolute;
+            top: 30%; left: 50%;
+            transform: translateX(-50%);
+            width: clamp(40px, 6vw, 80px);
+            height: 3px;
+            background: #444;
+            border-radius: 2px;
+        }
+        /* Wider bottom plate */
+        .laptop-bottom {
+            flex-shrink: 0;
+            height: clamp(4px, 0.6vh, 8px);
+            background: #333;
+            border-radius: 0 0 8px 8px;
+            margin: 0 -4%;
+        }
+
+        /* ─── Ramp page internals ─── */
+        .ramp-hero {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            padding: 28px 40px 10px;
+            text-align: center;
+        }
+
+        .ramp-hero h1 {
+            font-family: 'Inter', sans-serif;
+            font-size: 4.8rem;
+            font-weight: 700;
+            letter-spacing: -0.045em;
+            line-height: 0.92;
+            color: #1a1a1a;
+        }
+
+        .ramp-hero .ramp-sub {
+            margin-top: 12px;
+            font-size: 0.88rem;
+            color: #888;
+            line-height: 1.5;
+        }
+
+        .ramp-hero .ramp-cta {
+            margin-top: 14px;
+            display: inline-block;
+            padding: 10px 28px;
+            background: #d4e520;
+            color: #1a1a1a;
+            font-weight: 600;
+            font-size: 0.82rem;
+            border-radius: 50px;
+            text-decoration: none;
+        }
+
+        /* Carousel */
+        .ramp-carousel {
+            width: 100%;
+            overflow: hidden;
+            padding-top: 18px;
+        }
+
+        .ramp-track {
+            display: flex;
+            gap: 16px;
+            width: max-content;
+        }
+
+        .ramp-card {
+            flex-shrink: 0;
+            width: 260px;
+            border-radius: 14px;
+            background: #f2f0ed;
+            overflow: hidden;
+        }
+
+        .ramp-card-inner { padding: 18px 18px 0; }
+
+        .ramp-card .badge {
+            display: inline-block;
+            padding: 3px 8px;
+            background: rgba(255,255,255,0.85);
+            border-radius: 5px;
+            font-size: 0.74rem;
+            font-weight: 500;
+            color: #555;
+            margin-bottom: 5px;
+        }
+
+        .ramp-card .ach {
+            font-size: 1.05rem;
+            font-weight: 600;
+            line-height: 1.22;
+            color: #1a1a1a;
+            min-height: 2.4em;
+        }
+        .ramp-card .ach .hl {
+            background: linear-gradient(to top, #d4e52066 40%, transparent 40%);
+            padding: 0 2px;
+        }
+
+        .ramp-card .photo {
+            width: 100%;
+            aspect-ratio: 2/3;
+            object-fit: cover;
+            object-position: top center;
+            display: block;
+            margin-top: 10px;
+        }
+
+        @keyframes ramp-scroll {
+            0% { transform: translateX(0); }
+            100% { transform: translateX(-50%); }
+        }
+        .ramp-track.animate {
+            animation: ramp-scroll var(--dur, 35s) linear infinite;
+        }
+
+        /* Source */
+        .source-tag {
+            position: absolute;
+            bottom: clamp(4px, 0.8vh, 10px);
+            right: clamp(20px, 3vw, 56px);
+            font-size: clamp(0.48rem, 0.6vw, 0.58rem);
+            color: rgba(255,255,255,0.18);
+        }
+        .source-tag a { color: rgba(255,255,255,0.25); text-decoration: none; }
+    </style>
+</head>
+<body>
+
+<div class="slide">
+
+    <!-- Laptop mockup -->
+    <div class="laptop">
+        <div class="laptop-screen">
+            <div class="laptop-camera"></div>
+            <div class="browser">
+                <div class="browser-bar">
+                    <div class="dot r"></div>
+                    <div class="dot y"></div>
+                    <div class="dot g"></div>
+                    <div class="url-bar">
+                        <span class="lock">&#128274;</span> ramp.com/careers
+                    </div>
+                </div>
+                <div class="browser-viewport" id="browserViewport">
+                    <div class="ramp-page" id="rampPage">
+                        <div class="ramp-hero">
+                            <h1>We only hire<br>builders</h1>
+                            <p class="ramp-sub">
+                                Come here to solve hard problems, build without permission,<br>
+                                and ship work you're proud of. Sounds intense? It is.
+                            </p>
+                            <a href="#" class="ramp-cta">See open positions</a>
+                        </div>
+                        <div class="ramp-carousel">
+                            <div class="ramp-track" id="rampTrack"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="laptop-base"></div>
+        <div class="laptop-bottom"></div>
+    </div>
+
+    <div class="source-tag">Source: <a href="https://ramp.com/careers" target="_blank">ramp.com/careers</a></div>
+</div>
+
+<script>
+    const employees = [
+        { name: "Jen Z.", ach: "Rewrote this careers page in one weekend", hl: "Rewrote", photo: "assets/ramp/jen.jpg" },
+        { name: "Yash W.", ach: "Deployed agents that run their own lead-gen", hl: "Deployed", photo: "assets/ramp/yash.jpg" },
+        { name: "Jacob D.", ach: "Built the GTM brain used in every sales call", hl: "Built", photo: "assets/ramp/jacob.jpg" },
+        { name: "Parth G.", ach: "Built agents that power our entire GTM team", hl: "Built", photo: "assets/ramp/parth.jpg" },
+        { name: "Junho C.", ach: "Built an AI agent that applied for its own credit card", hl: "Built", photo: "assets/ramp/junho.jpg" },
+        { name: "Alexander S.", ach: "Built an AI spreadsheet editor in two weekends", hl: "Built", photo: "assets/ramp/alexander.jpg" },
+        { name: "Olivia G.", ach: "Built the debugging agent that saves developers sanity", hl: "Built", photo: "assets/ramp/olivia.jpg" },
+        { name: "Anne K.", ach: "Produced our first Super Bowl ad in under a week", hl: "Produced", photo: "assets/ramp/anne.jpg" },
+        { name: "Anthony H.", ach: "Broke the record for GitHub commits in Jan", hl: "Broke", photo: "assets/ramp/anthony.jpg" },
+        { name: "David O.", ach: "Manages $55M in marketing spend at age 23", hl: "Manages", photo: "assets/ramp/david.jpg" },
+        { name: "Eashan I.", ach: "Onboarded 950 new customers in January", hl: "Onboarded", photo: "assets/ramp/eashan.jpg" },
+    ];
+
+    const track = document.getElementById('rampTrack');
+    [...employees, ...employees].forEach(e => {
+        const i = e.ach.indexOf(e.hl);
+        const html = i !== -1
+            ? e.ach.slice(0, i) + `<span class="hl">${e.hl}</span>` + e.ach.slice(i + e.hl.length)
+            : e.ach;
+        const card = document.createElement('div');
+        card.className = 'ramp-card';
+        card.innerHTML = `
+            <div class="ramp-card-inner">
+                <div class="badge">${e.name}</div>
+                <div class="ach">${html}</div>
+            </div>
+            <img class="photo" src="${e.photo}" alt="${e.name}" loading="lazy">
+        `;
+        track.appendChild(card);
+    });
+
+    // Carousel animation
+    requestAnimationFrame(() => {
+        const half = track.scrollWidth / 2;
+        track.style.setProperty('--dur', `${half / 45}s`);
+        track.classList.add('animate');
+    });
+
+    // Scale the 1440px ramp page to fit the browser viewport
+    function fitPage() {
+        const vp = document.getElementById('browserViewport');
+        const pg = document.getElementById('rampPage');
+        const s = vp.clientWidth / 1440;
+        pg.style.transform = `scale(${s})`;
+    }
+    fitPage();
+    window.addEventListener('resize', fitPage);
+</script>
+
+</body>
+</html>

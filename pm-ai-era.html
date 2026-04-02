@@ -1,0 +1,694 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>PM in the AI Era — UCLA</title>
+    <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+
+    <style>
+        :root {
+            --bg-dark: #0a0a0a;
+            --bg-white: #ffffff;
+            --accent-blue: #4361ee;
+            --accent-blue-light: #6580f5;
+            --accent-blue-dark: #3451d1;
+            --text-dark: #0a0a0a;
+            --text-light: #ffffff;
+            --text-muted-dark: #666;
+            --text-muted-light: rgba(255,255,255,0.6);
+            --font-display: 'Manrope', sans-serif;
+            --font-body: 'Manrope', sans-serif;
+            --title-size: clamp(2rem, 6vw, 5rem);
+            --h2-size: clamp(1.6rem, 4.2vw, 3.2rem);
+            --h3-size: clamp(1.1rem, 2.2vw, 1.6rem);
+            --subtitle-size: clamp(0.9rem, 1.6vw, 1.2rem);
+            --body-size: clamp(0.85rem, 1.4vw, 1.15rem);
+            --small-size: clamp(0.7rem, 1vw, 0.9rem);
+            --slide-padding: clamp(1.5rem, 5vw, 5rem);
+            --content-gap: clamp(0.5rem, 2vw, 2rem);
+            --element-gap: clamp(0.25rem, 1vw, 1rem);
+            --ease-out-expo: cubic-bezier(0.16, 1, 0.3, 1);
+            --duration-normal: 0.6s;
+        }
+
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        html, body { height: 100%; overflow-x: hidden; }
+        html { scroll-snap-type: y mandatory; scroll-behavior: smooth; }
+
+        .slide {
+            width: 100vw; height: 100vh; height: 100dvh;
+            overflow: hidden; scroll-snap-align: start;
+            display: flex; flex-direction: column; position: relative;
+        }
+        .slide-content {
+            flex: 1; display: flex; flex-direction: column;
+            justify-content: center; max-height: 100%; overflow: hidden;
+            padding: var(--slide-padding);
+        }
+
+        @media (max-height: 700px) {
+            :root { --slide-padding: clamp(0.75rem, 3vw, 2rem); --content-gap: clamp(0.4rem, 1.5vw, 1rem); --title-size: clamp(1.25rem, 4.5vw, 2.5rem); --h2-size: clamp(1rem, 3vw, 1.75rem); }
+        }
+        @media (max-height: 500px) {
+            :root { --slide-padding: clamp(0.4rem, 2vw, 1rem); --title-size: clamp(1rem, 3.5vw, 1.5rem); --h2-size: clamp(0.9rem, 2.5vw, 1.25rem); }
+            .nav-dots { display: none; }
+        }
+        @media (prefers-reduced-motion: reduce) {
+            *, *::before, *::after { animation-duration: 0.01ms !important; transition-duration: 0.2s !important; }
+            html { scroll-behavior: auto; }
+        }
+
+        /* Layouts */
+        .layout-split { flex-direction: column; }
+        .panel-top {
+            flex: 1; background: var(--bg-white); display: flex; flex-direction: column;
+            justify-content: flex-end; padding: var(--slide-padding);
+            padding-bottom: clamp(1rem, 2.5vw, 2.5rem); position: relative;
+        }
+        .panel-bottom {
+            height: 40%; background: var(--accent-blue); display: flex;
+            align-items: center; padding: var(--slide-padding); position: relative;
+        }
+        .panel-top::after {
+            content: ''; position: absolute; bottom: 0; left: 0;
+            width: 100%; height: 4px; background: var(--accent-blue);
+        }
+        .layout-white { background: var(--bg-white); }
+        .layout-white .slide-content { justify-content: center; }
+        .layout-blue { background: var(--accent-blue); }
+        .layout-blue .slide-content { justify-content: center; }
+        .layout-dark { background: var(--bg-dark); }
+        .layout-dark .slide-content { justify-content: center; }
+
+        /* Full-page layout: title left, content fills */
+        .layout-full {
+            background: var(--bg-white);
+        }
+        .layout-full .slide-content {
+            justify-content: center;
+            padding: var(--slide-padding);
+        }
+
+        /* Typography */
+        h1 { font-family: var(--font-display); font-weight: 800; font-size: var(--title-size); line-height: 0.95; letter-spacing: -0.03em; color: var(--text-dark); }
+        h2 { font-family: var(--font-display); font-weight: 800; font-size: var(--h2-size); line-height: 1.05; letter-spacing: -0.02em; color: var(--text-dark); }
+        h3 { font-family: var(--font-display); font-weight: 700; font-size: var(--h3-size); color: var(--text-dark); }
+        p, li { font-family: var(--font-body); font-size: var(--body-size); line-height: 1.5; color: var(--text-muted-dark); }
+        .text-white h2, .text-white h3 { color: var(--text-light); }
+        .text-white p, .text-white li { color: var(--text-muted-light); }
+
+        .brand-tl { position: absolute; top: clamp(1rem, 2.5vw, 2rem); left: var(--slide-padding); font-family: var(--font-display); font-weight: 800; font-size: var(--small-size); color: var(--text-dark); text-transform: uppercase; letter-spacing: 0.15em; }
+        .brand-tr { position: absolute; top: clamp(1rem, 2.5vw, 2rem); right: var(--slide-padding); font-family: var(--font-body); font-weight: 500; font-size: var(--small-size); color: var(--text-muted-dark); }
+
+        .section-num { font-family: var(--font-display); font-weight: 800; font-size: clamp(4rem, 10vw, 8rem); color: rgba(0,0,0,0.04); line-height: 1; position: absolute; top: var(--slide-padding); right: var(--slide-padding); }
+
+        /* Big bullet points */
+        .points { list-style: none; display: flex; flex-direction: column; gap: clamp(0.8rem, 1.8vw, 1.5rem); }
+        .points li { display: flex; align-items: flex-start; gap: clamp(0.6rem, 1.2vw, 1rem); font-family: var(--font-body); font-size: var(--body-size); font-weight: 500; line-height: 1.5; }
+        .points li::before { content: ''; width: clamp(6px, 0.6vw, 8px); height: clamp(6px, 0.6vw, 8px); background: var(--accent-blue); border-radius: 2px; flex-shrink: 0; margin-top: 0.55em; }
+        .points.on-blue li::before { background: var(--text-light); }
+        .points.on-blue li { color: rgba(255,255,255,0.9); }
+        .points.on-dark li::before { background: var(--accent-blue-light); }
+        .points.on-dark li { color: rgba(255,255,255,0.8); }
+
+        /* Large points for full-page slides */
+        .points-lg { list-style: none; display: flex; flex-direction: column; gap: clamp(1.2rem, 2.5vw, 2rem); }
+        .points-lg li { display: flex; align-items: flex-start; gap: clamp(0.8rem, 1.5vw, 1.2rem); font-family: var(--font-body); font-size: clamp(1rem, 1.8vw, 1.4rem); font-weight: 500; line-height: 1.45; color: var(--text-dark); }
+        .points-lg li::before { content: ''; width: clamp(8px, 0.8vw, 10px); height: clamp(8px, 0.8vw, 10px); background: var(--accent-blue); border-radius: 2px; flex-shrink: 0; margin-top: 0.5em; }
+
+        .feature-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(min(100%, 280px), 1fr)); gap: clamp(0.8rem, 1.5vw, 1.5rem); }
+        .feature-card { padding: clamp(1rem, 2vw, 1.5rem); border: 2px solid rgba(0,0,0,0.06); border-radius: 4px; }
+        .feature-card h3 { font-size: var(--h3-size); margin-bottom: clamp(0.3rem, 0.5vw, 0.5rem); }
+        .feature-card p { font-size: var(--body-size); color: var(--text-muted-dark); }
+        .feature-card.on-blue { border-color: rgba(255,255,255,0.15); }
+        .feature-card.on-blue h3 { color: var(--text-light); }
+        .feature-card.on-blue p { color: var(--text-muted-light); }
+
+        .quote { font-family: var(--font-display); font-weight: 800; font-size: clamp(1.2rem, 2.5vw, 2rem); line-height: 1.3; color: var(--text-light); font-style: italic; }
+        .quote::before { content: '\201C'; }
+        .quote::after { content: '\201D'; }
+
+        .two-col { display: grid; grid-template-columns: 1fr 1fr; gap: clamp(1.5rem, 3vw, 3rem); align-items: center; }
+        @media (max-width: 600px) { .two-col { grid-template-columns: 1fr; } }
+
+        /* Animations */
+        .reveal { opacity: 0; transform: translateY(25px); transition: opacity var(--duration-normal) var(--ease-out-expo), transform var(--duration-normal) var(--ease-out-expo); }
+        .slide.visible .reveal { opacity: 1; transform: translateY(0); }
+        .reveal:nth-child(1) { transition-delay: 0.1s; }
+        .reveal:nth-child(2) { transition-delay: 0.2s; }
+        .reveal:nth-child(3) { transition-delay: 0.3s; }
+        .reveal:nth-child(4) { transition-delay: 0.4s; }
+        .reveal:nth-child(5) { transition-delay: 0.5s; }
+
+        .progress-bar { position: fixed; top: 0; left: 0; height: 3px; background: var(--accent-blue); z-index: 9999; transition: width 0.3s ease; }
+        .nav-dots { position: fixed; right: clamp(0.8rem, 1.5vw, 1.5rem); top: 50%; transform: translateY(-50%); display: flex; flex-direction: column; gap: clamp(4px, 0.5vh, 6px); z-index: 9998; }
+        .nav-dot { width: clamp(6px, 0.5vw, 8px); height: clamp(6px, 0.5vw, 8px); border-radius: 50%; background: rgba(0,0,0,0.15); cursor: pointer; transition: all 0.3s ease; border: none; padding: 0; }
+        .nav-dot.active { background: var(--accent-blue); transform: scale(1.4); }
+
+        .edit-hotzone { position: fixed; top: 0; left: 0; width: 80px; height: 80px; z-index: 10000; cursor: pointer; }
+        .edit-toggle { position: fixed; top: clamp(0.8rem, 1.5vw, 1.2rem); left: clamp(0.8rem, 1.5vw, 1.2rem); background: var(--accent-blue); color: white; border: none; border-radius: 4px; padding: 0.4em 0.8em; font-family: var(--font-body); font-size: var(--small-size); font-weight: 600; cursor: pointer; opacity: 0; pointer-events: none; transition: opacity 0.3s ease; z-index: 10001; }
+        .edit-toggle.show, .edit-toggle.active { opacity: 1; pointer-events: auto; }
+        .edit-toggle.active { background: #e53e3e; }
+        .edit-bar { display: none; position: fixed; bottom: 0; left: 0; right: 0; background: var(--bg-dark); color: var(--text-light); padding: 0.5em 1em; font-family: var(--font-body); font-size: var(--small-size); z-index: 10001; justify-content: space-between; align-items: center; }
+        .edit-bar.show { display: flex; }
+        .edit-bar button { background: var(--accent-blue); color: white; border: none; border-radius: 3px; padding: 0.3em 0.8em; font-family: var(--font-body); font-size: var(--small-size); cursor: pointer; }
+        [contenteditable="true"] { outline: 2px dashed var(--accent-blue); outline-offset: 4px; cursor: text; }
+
+        /* DNA Helix */
+        .dna-container { display: flex; align-items: center; justify-content: center; width: 100%; height: 100%; position: relative; padding: clamp(2rem, 4vw, 4rem) clamp(1rem, 3vw, 3rem); }
+        .dna-track { position: relative; width: 100%; max-width: 900px; height: clamp(300px, 50vh, 450px); }
+        .dna-strand { position: absolute; top: 0; left: 0; width: 100%; height: 100%; }
+        .dna-strand path { fill: none; stroke-width: 3; stroke-linecap: round; opacity: 0.3; }
+        .dna-strand-ai path { stroke: var(--accent-blue); }
+        .dna-strand-commerce path { stroke: #10b981; }
+        .dna-node { position: absolute; display: flex; flex-direction: column; align-items: center; gap: 4px; transform: translate(-50%, -50%); transition: all 0.4s var(--ease-out-expo); cursor: default; }
+        .dna-node:hover .dna-badge { transform: scale(1.15); }
+        .dna-badge { width: clamp(36px, 5vw, 56px); height: clamp(36px, 5vw, 56px); border-radius: 12px; display: flex; align-items: center; justify-content: center; font-family: var(--font-display); font-weight: 800; font-size: clamp(0.45rem, 0.7vw, 0.65rem); color: #fff; text-align: center; line-height: 1.1; transition: transform 0.3s var(--ease-out-expo), filter 0.3s ease; filter: grayscale(100%) brightness(0.7); }
+        .dna-node:hover .dna-badge, .dna-node.active .dna-badge { filter: grayscale(0%) brightness(1); }
+        .dna-label { font-family: var(--font-body); font-size: clamp(0.5rem, 0.75vw, 0.7rem); font-weight: 600; color: var(--text-muted-dark); text-align: center; max-width: 80px; line-height: 1.2; }
+        .dna-tag { font-family: var(--font-body); font-size: clamp(0.4rem, 0.55vw, 0.55rem); font-weight: 500; padding: 2px 6px; border-radius: 3px; white-space: nowrap; }
+        .dna-tag.ai { background: rgba(67,97,238,0.12); color: var(--accent-blue); }
+        .dna-tag.commerce { background: rgba(16,185,129,0.12); color: #059669; }
+        .dna-tag.both { background: rgba(139,92,246,0.12); color: #7c3aed; }
+        .dna-legend { position: absolute; bottom: clamp(0.5rem, 1.5vw, 1.5rem); left: 50%; transform: translateX(-50%); display: flex; gap: clamp(1rem, 2vw, 2rem); font-family: var(--font-body); font-size: var(--small-size); color: var(--text-muted-dark); }
+        .dna-legend span::before { content: ''; display: inline-block; width: 12px; height: 3px; border-radius: 2px; margin-right: 6px; vertical-align: middle; }
+        .dna-legend .leg-ai::before { background: var(--accent-blue); }
+        .dna-legend .leg-commerce::before { background: #10b981; }
+
+        /* Strikethrough */
+        .struck { text-decoration: line-through; text-decoration-color: #e53e3e; text-decoration-thickness: 3px; opacity: 0.5; }
+
+        /* Ramp iframe */
+        .ramp-embed-wrap { flex: 1; display: flex; flex-direction: column; align-items: center; padding: 0 var(--slide-padding) var(--slide-padding); min-height: 0; }
+        .ramp-laptop { flex: 1; width: 100%; max-width: 1100px; display: flex; flex-direction: column; min-height: 0; }
+        .ramp-screen { flex: 1; background: #1c1c1e; border-radius: 10px 10px 0 0; padding: 5px 5px 0; display: flex; flex-direction: column; min-height: 0; }
+        .ramp-cam { flex-shrink: 0; height: 5px; display: flex; justify-content: center; align-items: center; margin-bottom: 2px; }
+        .ramp-cam::before { content: ''; width: 5px; height: 5px; border-radius: 50%; background: #2a2a2e; border: 1px solid #333; }
+        .ramp-browser { flex: 1; border-radius: 6px 6px 0 0; overflow: hidden; background: #fff; display: flex; flex-direction: column; min-height: 0; }
+        .ramp-bar { flex-shrink: 0; height: clamp(24px, 3vh, 32px); background: #f0eeeb; display: flex; align-items: center; padding: 0 12px; gap: 6px; border-bottom: 1px solid #e0ddd8; }
+        .ramp-dot { width: 9px; height: 9px; border-radius: 50%; }
+        .ramp-dot.r { background: #ff5f57; } .ramp-dot.y { background: #febc2e; } .ramp-dot.g { background: #28c840; }
+        .ramp-url { margin-left: 12px; background: #fff; border-radius: 5px; padding: 3px 10px; font-size: clamp(0.5rem, 0.65vw, 0.65rem); color: #999; border: 1px solid #e5e3df; }
+        .ramp-iframe-box { flex: 1; min-height: 0; }
+        .ramp-iframe-box iframe { width: 100%; height: 100%; border: none; display: block; }
+        .ramp-base { flex-shrink: 0; height: clamp(8px, 1.2vh, 14px); background: linear-gradient(to bottom, #2a2a2e 0%, #3a3a3e 40%, #2a2a2e 100%); border-radius: 0 0 3px 3px; margin: 0 -1.5%; position: relative; }
+        .ramp-base::before { content: ''; position: absolute; top: 30%; left: 50%; transform: translateX(-50%); width: clamp(30px, 5vw, 60px); height: 2px; background: #444; border-radius: 2px; }
+        .ramp-bottom { flex-shrink: 0; height: clamp(3px, 0.5vh, 6px); background: #333; border-radius: 0 0 6px 6px; margin: 0 -3%; }
+
+        /* Three-column number cards */
+        .num-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: clamp(1rem, 2vw, 2rem); width: 100%; }
+        @media (max-width: 700px) { .num-grid { grid-template-columns: 1fr; } }
+        .num-card { padding: clamp(1rem, 2vw, 1.8rem); }
+        .num-card .num { font-family: var(--font-display); font-weight: 800; font-size: clamp(2rem, 4vw, 3.5rem); color: var(--accent-blue); line-height: 1; margin-bottom: 0.3em; }
+        .num-card h3 { margin-bottom: 0.4em; }
+        .num-card p { font-size: var(--body-size); }
+
+        /* Prompt card for eval slide */
+        .prompt-card {
+            background: rgba(0,0,0,0.03); border: 2px solid rgba(0,0,0,0.06);
+            border-radius: 8px; padding: clamp(1rem, 2vw, 1.5rem);
+            text-align: center; display: flex; flex-direction: column; align-items: center; gap: 0.5em;
+        }
+        .prompt-card .q-mark {
+            font-family: var(--font-display); font-weight: 800;
+            font-size: clamp(2.5rem, 5vw, 4rem); color: var(--accent-blue); line-height: 1;
+        }
+        .prompt-card p { font-size: clamp(0.9rem, 1.3vw, 1.1rem); font-weight: 600; color: var(--text-dark); }
+
+        /* Four-card grid with arrows */
+        .cap-grid { display: grid; grid-template-columns: 1fr 1fr; gap: clamp(1rem, 2vw, 1.8rem); width: 100%; }
+        @media (max-width: 600px) { .cap-grid { grid-template-columns: 1fr; } }
+        .cap-card { padding: clamp(1rem, 2vw, 1.5rem); border-left: 4px solid var(--accent-blue); }
+        .cap-card h3 { font-size: var(--h3-size); margin-bottom: 0.3em; }
+        .cap-card p { font-size: var(--body-size); color: var(--text-muted-dark); }
+    </style>
+</head>
+<body>
+
+<div class="progress-bar" id="progressBar"></div>
+<nav class="nav-dots" id="navDots" aria-label="Slide navigation"></nav>
+<div class="edit-hotzone" id="editHotzone"></div>
+<button class="edit-toggle" id="editToggle" title="Edit mode (E)">Edit</button>
+<div class="edit-bar" id="editBar">
+    <span>Edit mode — click any text to edit</span>
+    <div>
+        <button onclick="editor.save()">Save (Ctrl+S)</button>
+        <button onclick="editor.exportFile()">Export HTML</button>
+    </div>
+</div>
+
+
+<!-- ===================== SLIDE 0: TITLE ===================== -->
+<section class="slide layout-split" data-slide="0">
+    <div class="panel-top">
+        <div class="brand-tl reveal">UCLA</div>
+        <div class="brand-tr reveal">April 2026</div>
+        <h1 class="reveal">Product Shaper<br>in the AI Era</h1>
+        <p class="reveal" style="margin-top: var(--element-gap); font-size: var(--subtitle-size); color: var(--text-muted-dark);">Rethinking the Role, the Craft, and Your Career</p>
+    </div>
+    <div class="panel-bottom">
+        <div class="two-col" style="width:100%;">
+            <div class="reveal">
+                <div style="font-family: var(--font-display); font-weight: 800; font-size: var(--h3-size); color: var(--text-light);">Jaggie</div>
+                <div style="font-family: var(--font-body); font-weight: 400; font-size: var(--small-size); color: var(--text-muted-light); margin-top: 0.3em;">A Non-Traditional Journey into Product</div>
+            </div>
+            <div class="reveal" style="text-align: right;">
+                <div class="quote" style="font-size: clamp(0.9rem, 1.4vw, 1.2rem);">Job titles change. Core capabilities endure.</div>
+            </div>
+        </div>
+    </div>
+</section>
+
+
+<!-- ===================== SLIDE 1: MY JOURNEY ===================== -->
+<section class="slide layout-white" data-slide="1">
+    <div class="brand-tl reveal" style="z-index:2;">My Journey</div>
+    <div class="brand-tr reveal" style="z-index:2;">AI &times; Commerce</div>
+    <div class="dna-container">
+        <div class="dna-track">
+            <svg class="dna-strand dna-strand-ai" viewBox="0 0 900 400" preserveAspectRatio="none" style="width:100%;height:100%;"><path d="M 0,200 C 100,80 200,80 300,200 S 500,320 600,200 S 800,80 900,200"/></svg>
+            <svg class="dna-strand dna-strand-commerce" viewBox="0 0 900 400" preserveAspectRatio="none" style="width:100%;height:100%;"><path d="M 0,200 C 100,320 200,320 300,200 S 500,80 600,200 S 800,320 900,200"/></svg>
+            <div class="dna-node" style="left:5%;top:50%;"><div class="dna-badge" style="background:#003DA5;">P&G</div><div class="dna-label">Consumer Insight</div><div class="dna-tag commerce">Brand</div></div>
+            <div class="dna-node" style="left:17%;top:25%;"><div class="dna-badge" style="background:#f59e0b;">Auto</div><div class="dna-label">Used Car Mktplace</div><div class="dna-tag commerce">Startup</div></div>
+            <div class="dna-node" style="left:28%;top:72%;"><div class="dna-badge" style="background:#6366f1;">VC</div><div class="dna-label">AI Chatbot</div><div class="dna-tag ai">AI Spark</div></div>
+            <div class="dna-node" style="left:40%;top:30%;"><div class="dna-badge" style="background:#111;">TT</div><div class="dna-label">TikTok / ByteDance</div><div class="dna-tag both">AI &times; Content</div></div>
+            <div class="dna-node" style="left:50%;top:65%;"><div class="dna-badge" style="background:#7c3aed;">MBA</div><div class="dna-label">Grad School</div><div class="dna-tag commerce">US Move</div></div>
+            <div class="dna-node" style="left:62%;top:25%;"><div class="dna-badge" style="background:#e11d48;">PM</div><div class="dna-label">Poshmark</div><div class="dna-tag both">Search &times; ML</div></div>
+            <div class="dna-node" style="left:73%;top:70%;"><div class="dna-badge" style="background:#10b981;">KD</div><div class="dna-label">Founded KiwiDrop</div><div class="dna-tag commerce">E-comm</div></div>
+            <div class="dna-node" style="left:84%;top:30%;"><div class="dna-badge" style="background:#f97316;">SPC</div><div class="dna-label">South Park Commons</div><div class="dna-tag ai">Explore</div></div>
+            <div class="dna-node" style="left:95%;top:55%;"><div class="dna-badge" style="background:#1877F2;">Meta</div><div class="dna-label">Ads &times; Gen AI</div><div class="dna-tag both">AI &times; Ads</div></div>
+        </div>
+        <div class="dna-legend"><span class="leg-ai">AI</span><span class="leg-commerce">Commerce</span></div>
+    </div>
+</section>
+
+
+<!-- ===================== SLIDE 2: PRODUCT = TOTAL CUSTOMER EXPERIENCE ===================== -->
+<section class="slide layout-split" data-slide="2">
+    <div class="panel-top">
+        <div class="brand-tl reveal">UCLA</div>
+        <h2 class="reveal">Product = Total Customer Experience</h2>
+        <p class="reveal" style="margin-top: var(--element-gap); font-size: var(--subtitle-size); color: var(--text-muted-dark); max-width: 600px;">Not just software. The <strong>total offering</strong> a customer encounters — from discovery to delight.</p>
+    </div>
+    <div class="panel-bottom">
+        <div style="width: 100%;">
+            <h3 class="reveal" style="color: var(--text-light); margin-bottom: var(--element-gap);">PM = Product Shaper</h3>
+            <ul class="points on-blue reveal" style="width: 100%;">
+                <li>The person who <strong>defines</strong> the product and <strong>makes the call</strong></li>
+                <li>Not a project manager. Not a ticket writer. A <strong>creator</strong></li>
+                <li>Title popularized in the Rails era — but the function is as old as commerce</li>
+            </ul>
+        </div>
+    </div>
+</section>
+
+
+<!-- ===================== SLIDE 3: EVERY INDUSTRY ===================== -->
+<section class="slide layout-full" data-slide="3">
+    <div class="slide-content">
+        <div class="brand-tl reveal">UCLA</div>
+        <h2 class="reveal">Every Industry Has a Product Shaper</h2>
+        <p class="reveal" style="margin-top: var(--element-gap); font-size: var(--subtitle-size); color: var(--text-muted-dark);">Different name, different domain — same core job.</p>
+        <div class="feature-grid reveal" style="margin-top: var(--content-gap);">
+            <div class="feature-card">
+                <h3>Amazon Retail</h3>
+                <p>Selection, Prime, returns, delivery speed &rarr; the "product" is the entire purchase experience</p>
+            </div>
+            <div class="feature-card">
+                <h3>Pharma</h3>
+                <p>Compound = product &rarr; dosage, efficacy, risk, target patient. Every decision is a tradeoff</p>
+            </div>
+            <div class="feature-card">
+                <h3>E-commerce / KiwiDrop</h3>
+                <p>Retention is the product &rarr; pricing, curation, trust. What makes a buyer come back?</p>
+            </div>
+        </div>
+    </div>
+</section>
+
+
+<!-- ===================== SLIDE 4: PM IS GONE + RAMP (MERGED) ===================== -->
+<section class="slide layout-dark text-white" data-slide="4">
+    <div style="flex-shrink:0; padding: clamp(14px, 2vh, 24px) var(--slide-padding) clamp(6px, 1vh, 10px); display: flex; align-items: baseline; justify-content: space-between;">
+        <h2 class="reveal" style="color: var(--text-light); font-size: var(--h2-size);">"PM Is Gone." Now Hiring: <span style="color: var(--accent-blue-light);">Builders Only.</span></h2>
+        <span class="reveal" style="font-size: var(--small-size); color: rgba(255,255,255,0.3); text-transform: uppercase; letter-spacing: 0.12em;">ramp.com/careers</span>
+    </div>
+    <div class="ramp-embed-wrap">
+        <div class="ramp-laptop">
+            <div class="ramp-screen">
+                <div class="ramp-cam"></div>
+                <div class="ramp-browser">
+                    <div class="ramp-bar">
+                        <div class="ramp-dot r"></div><div class="ramp-dot y"></div><div class="ramp-dot g"></div>
+                        <div class="ramp-url">&#128274; ramp.com/careers</div>
+                    </div>
+                    <div class="ramp-iframe-box">
+                        <iframe src="ramp-careers.html" loading="lazy" title="Ramp Careers Page"></iframe>
+                    </div>
+                </div>
+            </div>
+            <div class="ramp-base"></div>
+            <div class="ramp-bottom"></div>
+        </div>
+    </div>
+</section>
+
+
+<!-- ===================== SLIDE 5: WHAT'S ACTUALLY CHANGING ===================== -->
+<section class="slide layout-full" data-slide="5">
+    <div class="slide-content">
+        <div class="brand-tl reveal">UCLA</div>
+        <h2 class="reveal">What's Actually Changing</h2>
+        <div class="num-grid reveal" style="margin-top: var(--content-gap);">
+            <div class="num-card">
+                <div class="num">1</div>
+                <h3>Tasks Automated Away</h3>
+                <p><span class="struck">Write PRDs</span></p>
+                <p><span class="struck">Prioritize backlog</span></p>
+                <p><span class="struck">Cross-team alignment docs</span></p>
+                <p style="margin-top:0.5em; color: var(--accent-blue); font-weight: 600;">What's left?</p>
+            </div>
+            <div class="num-card">
+                <div class="num">2</div>
+                <h3>Models Change Daily</h3>
+                <p>Old assumption:</p>
+                <p><span class="struck">"Tech stays stable during a project"</span></p>
+                <p style="margin-top:0.5em;">New reality: capabilities shift <strong>mid-sprint</strong></p>
+            </div>
+            <div class="num-card">
+                <div class="num">3</div>
+                <h3>Non-Deterministic Output</h3>
+                <p>AI doesn't produce the same result twice</p>
+                <p style="margin-top:0.5em;">You can't spec it like traditional software &rarr; <strong>evaluation</strong> becomes a core skill</p>
+            </div>
+        </div>
+    </div>
+</section>
+
+
+<!-- ===================== SLIDE 6: THE PM RESPONSE ===================== -->
+<section class="slide layout-full" data-slide="6">
+    <div class="slide-content">
+        <div class="brand-tl reveal">UCLA</div>
+        <p class="reveal" style="font-size: var(--small-size); text-transform: uppercase; letter-spacing: 0.15em; color: var(--text-muted-dark); margin-bottom: var(--element-gap);">What's Different from Old-School PM</p>
+        <h2 class="reveal">Try Faster. Build Earlier. Overturn Yourself.</h2>
+        <ul class="points-lg reveal" style="margin-top: var(--content-gap); max-width: 900px;">
+            <li><strong>Mini prototypes, not 10-page PRDs.</strong> Get feasibility signal in hours, not weeks</li>
+            <li><strong>Re-evaluate after every model release.</strong> Workarounds for old limitations become unnecessary complexity</li>
+            <li><strong>Unlearn your priors.</strong> Yesterday's best practice can be today's tech debt. Throw away your own work</li>
+        </ul>
+        <div class="reveal" style="margin-top: var(--content-gap); padding: clamp(1rem, 2vw, 1.5rem); background: rgba(67,97,238,0.06); border-radius: 6px; max-width: 900px;">
+            <p style="font-size: var(--body-size); color: var(--accent-blue);"><strong>Example:</strong> Meta Ads creative team &mdash; shorter cycles, everyone (eng, design, DS, UXR, PM) runs small experiments <em>off-roadmap</em></p>
+        </div>
+    </div>
+</section>
+
+
+<!-- ===================== SLIDE 7: EVAL = TRIAL AND ERROR ===================== -->
+<section class="slide layout-full" data-slide="7">
+    <div class="slide-content">
+        <div class="brand-tl reveal">UCLA</div>
+        <h2 class="reveal">Eval = Trial and Error</h2>
+
+        <div class="reveal" style="margin-top: var(--content-gap); padding: clamp(1rem, 2vw, 1.5rem); background: rgba(67,97,238,0.06); border-radius: 6px; max-width: 900px;">
+            <p style="font-size: var(--subtitle-size); color: var(--accent-blue); font-weight: 700;">Prompt to yourself: if you were the boss reviewing your employee's work, what would your rubric be?</p>
+        </div>
+
+        <ul class="points-lg reveal" style="margin-top: var(--content-gap); max-width: 900px;">
+            <li><strong>Rubric won't be right the first time.</strong> Run 100-150 samples, self-label, discover where dimensions conflict and categories blur</li>
+            <li><strong>Iterate the rubric, not just the prompt.</strong> Fix the eval before fixing the model</li>
+            <li><strong>Mental model: onboarding a junior teammate.</strong> Not a one-time doc — continuous, structured support and calibration</li>
+        </ul>
+    </div>
+</section>
+
+
+<!-- ===================== SLIDE 7b: WHICH REVISION IS EASIER? ===================== -->
+<section class="slide layout-full" data-slide="7b">
+    <div class="slide-content" style="align-items: center;">
+        <div class="brand-tl reveal">UCLA</div>
+        <h2 class="reveal" style="text-align: center;">Which Revision Is Easier?</h2>
+
+        <div class="reveal" style="margin-top: var(--content-gap); display: grid; grid-template-columns: 1fr auto 1fr; gap: clamp(1rem, 2.5vw, 2.5rem); align-items: center; max-width: 950px; width: 100%;">
+            <div class="prompt-card">
+                <div class="q-mark">?</div>
+                <p>"Change the text on this<br>ketchup bottle to Mayo"</p>
+            </div>
+
+            <div style="flex-shrink: 0; display: flex; align-items: center;">
+                <img src="assets/heinz-ketchup.png" alt="Heinz Ketchup ad" style="max-height: clamp(200px, 40vh, 380px); width: auto; border-radius: 8px; box-shadow: 0 4px 24px rgba(0,0,0,0.15);">
+            </div>
+
+            <div class="prompt-card">
+                <div class="q-mark">?</div>
+                <p>"Make all the text<br>bigger and bolder"</p>
+            </div>
+        </div>
+    </div>
+</section>
+
+
+<!-- ===================== SLIDE 8: BE TECHNICAL ===================== -->
+<section class="slide layout-split" data-slide="8">
+    <div class="panel-top">
+        <div class="brand-tl reveal">UCLA</div>
+        <h2 class="reveal">Be Technical: Know the Boundaries</h2>
+        <p class="reveal" style="margin-top: var(--element-gap); font-size: var(--subtitle-size); color: var(--text-muted-dark); max-width: 650px;"><strong>Level 1:</strong> What works today vs. what doesn't<br><strong>Level 2:</strong> What gets unlocked in 3-6 months &mdash; and why<br>&rarr; Build where need meets capability</p>
+    </div>
+    <div class="panel-bottom">
+        <ul class="points on-blue reveal" style="width: 100%;">
+            <li><strong>Papers:</strong> Abstract &rarr; Conclusion &rarr; main body only if curious</li>
+            <li><strong>Best stuff isn't in papers.</strong> Follow X, HN, builder communities</li>
+            <li><strong>Try first, ask second.</strong> Before asking a human, ask AI. Hands-on > hearsay</li>
+        </ul>
+    </div>
+</section>
+
+
+<!-- ===================== SLIDE 9: USE AI WELL ===================== -->
+<section class="slide layout-full" data-slide="9">
+    <div class="slide-content">
+        <div class="brand-tl reveal">UCLA</div>
+        <h2 class="reveal">Use AI Well: PRD for AI</h2>
+        <p class="reveal" style="margin-top: var(--element-gap); font-size: var(--subtitle-size); color: var(--text-muted-dark);">The old artifact: PRD for engineers. The new one: <strong>PRD for AI.</strong></p>
+        <ul class="points-lg reveal" style="margin-top: var(--content-gap); max-width: 900px;">
+            <li><strong>Prompt &rarr; Context &rarr; Harness Engineering</strong> &mdash; single-prompt chat is not the ceiling</li>
+            <li><strong>Agent System Design</strong> &mdash; Proposer + Red-team + Judge + Critic, or domain-split agents</li>
+            <li><strong>Start with a concrete project</strong> &mdash; build end-to-end with AI. A baby tracker, a content assistant. Learning by doing</li>
+        </ul>
+    </div>
+</section>
+
+
+<!-- ===================== SLIDE 10: CORE CAPABILITIES BEYOND BUILDING ===================== -->
+<section class="slide layout-full" data-slide="10">
+    <div class="slide-content">
+        <div class="brand-tl reveal">UCLA</div>
+        <h2 class="reveal">Core Capabilities Beyond Building</h2>
+        <p class="reveal" style="margin-top: var(--element-gap); font-size: var(--subtitle-size); color: var(--text-muted-dark);">AI can build. These are what it can't replace.</p>
+        <div class="cap-grid reveal" style="margin-top: var(--content-gap);">
+            <div class="cap-card">
+                <h3>Domain Expertise</h3>
+                <p>Cold-start advantage &rarr; but window shrinking<br>LLMs learn fast &rarr; unique insight bar keeps rising</p>
+            </div>
+            <div class="cap-card">
+                <h3>Taste</h3>
+                <p>Seen great products, felt great experiences<br>That calibration is lived, not prompted</p>
+            </div>
+            <div class="cap-card">
+                <h3>Tinker</h3>
+                <p>Learn fast by doing, not reading<br>Build &rarr; hit wall &rarr; iterate. The muscle</p>
+            </div>
+            <div class="cap-card">
+                <h3>Architecture</h3>
+                <p>Design systems, not patches<br>Patches don't compound. Architecture does</p>
+            </div>
+        </div>
+    </div>
+</section>
+
+
+<!-- ===================== SLIDE 11: WHAT HASN'T CHANGED ===================== -->
+<section class="slide layout-full" data-slide="11">
+    <div class="slide-content">
+        <div class="brand-tl reveal">UCLA</div>
+        <h2 class="reveal">What Hasn't Changed</h2>
+        <div class="num-grid reveal" style="margin-top: var(--content-gap);">
+            <div class="num-card">
+                <div class="num" style="color: #10b981;">01</div>
+                <h3>Curiosity &amp; Empathy</h3>
+                <p>The starting point for every great product<br>No model simulates genuine curiosity</p>
+            </div>
+            <div class="num-card">
+                <div class="num" style="color: #10b981;">02</div>
+                <h3>Think Deeper / Synthesize</h3>
+                <p>See the essence &rarr; extract structure &rarr; design systems<br>AI generates. You <strong>synthesize</strong></p>
+            </div>
+            <div class="num-card">
+                <div class="num" style="color: #10b981;">03</div>
+                <h3>Influence &amp; Persuasion</h3>
+                <p>Attention is expensive. Supply is infinite<br>GTM is the bottleneck. Content = product</p>
+            </div>
+        </div>
+    </div>
+</section>
+
+
+<!-- ===================== SLIDE 12: WHAT TO DO NOW ===================== -->
+<section class="slide layout-dark text-white" data-slide="12">
+    <div class="slide-content" style="align-items: center; text-align: center; max-width: 800px; margin: 0 auto;">
+        <h2 class="reveal" style="color: var(--text-light); font-size: var(--h2-size);">What to Do Now</h2>
+        <div class="reveal" style="margin-top: var(--content-gap); display: flex; gap: clamp(1.5rem, 3vw, 3rem); flex-wrap: wrap; justify-content: center; text-align: left;">
+            <div style="flex: 1; min-width: 280px; padding: clamp(1.2rem, 2.5vw, 2rem); border: 1px solid rgba(255,255,255,0.12); border-radius: 6px;">
+                <h3 style="color: var(--accent-blue-light); font-size: var(--h3-size); margin-bottom: 0.5em;">Short Term</h3>
+                <p style="color: var(--text-muted-light); font-size: var(--body-size);">Make yourself a <strong style="color:#fff;">one-person powerhouse</strong><br>Close the loop end-to-end<br>Be 60% competent at every function</p>
+            </div>
+            <div style="flex: 1; min-width: 280px; padding: clamp(1.2rem, 2.5vw, 2rem); border: 1px solid rgba(255,255,255,0.12); border-radius: 6px;">
+                <h3 style="color: var(--accent-blue-light); font-size: var(--h3-size); margin-bottom: 0.5em;">Long Term</h3>
+                <p style="color: var(--text-muted-light); font-size: var(--body-size);">Don't cling to <strong style="color:#fff;">"Product Manager"</strong><br>Be a product shaper<br>Focus on taste, strategy, influence</p>
+            </div>
+        </div>
+    </div>
+</section>
+
+
+<!-- ===================== SLIDE 13: Q&A ===================== -->
+<section class="slide layout-split" data-slide="13">
+    <div class="panel-top">
+        <div class="brand-tl">UCLA</div>
+        <div class="brand-tr">April 2026</div>
+        <h1 class="reveal">Thank You. Let's Chat.</h1>
+        <p class="reveal" style="margin-top: var(--element-gap); font-size: var(--subtitle-size); color: var(--text-muted-dark);">Q&A — ask me anything about PM, AI, career, or life.</p>
+    </div>
+    <div class="panel-bottom">
+        <div class="two-col reveal" style="width: 100%;">
+            <div>
+                <div style="font-family: var(--font-display); font-weight: 800; font-size: var(--h3-size); color: var(--text-light);">Jaggie</div>
+                <div style="font-family: var(--font-body); font-size: var(--small-size); color: var(--text-muted-light); margin-top: 0.3em;">jaggiechu@gmail.com</div>
+            </div>
+            <div style="text-align: right;">
+                <div style="font-family: var(--font-body); font-size: var(--small-size); color: var(--text-muted-light);">Product Shaper</div>
+            </div>
+        </div>
+    </div>
+</section>
+
+
+<script>
+    class SlidePresentation {
+        constructor() {
+            this.slides = document.querySelectorAll('.slide');
+            this.currentSlide = 0;
+            this.setupIntersectionObserver();
+            this.setupKeyboardNav();
+            this.setupTouchNav();
+            this.setupProgressBar();
+            this.setupNavDots();
+            this.setupWheelNav();
+        }
+        setupIntersectionObserver() {
+            const observer = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        entry.target.classList.add('visible');
+                        const idx = Array.from(this.slides).indexOf(entry.target);
+                        if (idx !== -1) { this.currentSlide = idx; this.updateProgressBar(); this.updateNavDots(); }
+                    }
+                });
+            }, { threshold: 0.5 });
+            this.slides.forEach(slide => observer.observe(slide));
+        }
+        setupKeyboardNav() {
+            document.addEventListener('keydown', (e) => {
+                if (e.target.getAttribute('contenteditable')) return;
+                switch(e.key) {
+                    case 'ArrowDown': case 'ArrowRight': case ' ': case 'PageDown':
+                        e.preventDefault(); this.goToSlide(this.currentSlide + 1); break;
+                    case 'ArrowUp': case 'ArrowLeft': case 'PageUp':
+                        e.preventDefault(); this.goToSlide(this.currentSlide - 1); break;
+                    case 'Home': e.preventDefault(); this.goToSlide(0); break;
+                    case 'End': e.preventDefault(); this.goToSlide(this.slides.length - 1); break;
+                }
+            });
+        }
+        setupTouchNav() {
+            let startY = 0;
+            document.addEventListener('touchstart', (e) => { startY = e.touches[0].clientY; }, { passive: true });
+            document.addEventListener('touchend', (e) => {
+                const diff = startY - e.changedTouches[0].clientY;
+                if (Math.abs(diff) > 50) this.goToSlide(this.currentSlide + (diff > 0 ? 1 : -1));
+            }, { passive: true });
+        }
+        setupWheelNav() {
+            let lastWheel = 0;
+            document.addEventListener('wheel', (e) => {
+                const now = Date.now();
+                if (now - lastWheel < 800) return;
+                lastWheel = now;
+                if (Math.abs(e.deltaY) > 30) this.goToSlide(this.currentSlide + (e.deltaY > 0 ? 1 : -1));
+            }, { passive: true });
+        }
+        setupProgressBar() { this.progressBar = document.getElementById('progressBar'); this.updateProgressBar(); }
+        updateProgressBar() { if (this.progressBar) this.progressBar.style.width = ((this.currentSlide + 1) / this.slides.length) * 100 + '%'; }
+        setupNavDots() {
+            const c = document.getElementById('navDots'); if (!c) return;
+            this.slides.forEach((_, i) => { const d = document.createElement('button'); d.className = 'nav-dot' + (i === 0 ? ' active' : ''); d.addEventListener('click', () => this.goToSlide(i)); c.appendChild(d); });
+            this.dots = c.querySelectorAll('.nav-dot');
+        }
+        updateNavDots() { if (this.dots) this.dots.forEach((d, i) => d.classList.toggle('active', i === this.currentSlide)); }
+        goToSlide(index) {
+            if (index < 0 || index >= this.slides.length) return;
+            this.currentSlide = index;
+            this.slides[index].scrollIntoView({ behavior: 'smooth' });
+            this.updateProgressBar(); this.updateNavDots();
+        }
+    }
+
+    class InlineEditor {
+        constructor() { this.isActive = false; this.storageKey = 'pm-ai-era-v3'; localStorage.removeItem('pm-ai-era-v2'); localStorage.removeItem('pm-ai-era-edits'); this.loadSaved(); }
+        toggleEditMode() {
+            this.isActive = !this.isActive;
+            const toggle = document.getElementById('editToggle'), bar = document.getElementById('editBar');
+            if (this.isActive) {
+                toggle.textContent = 'Exit Edit'; toggle.classList.add('active'); bar.classList.add('show');
+                document.querySelectorAll('h1,h2,h3,p,li,.quote,div[style]').forEach(el => { if (!el.closest('.edit-bar') && !el.closest('.nav-dots') && el.textContent.trim()) el.setAttribute('contenteditable','true'); });
+            } else {
+                toggle.textContent = 'Edit'; toggle.classList.remove('active'); bar.classList.remove('show');
+                document.querySelectorAll('[contenteditable]').forEach(el => el.removeAttribute('contenteditable'));
+                this.save();
+            }
+        }
+        save() { const d = {}; document.querySelectorAll('.slide').forEach((s, i) => { d[i] = s.innerHTML; }); localStorage.setItem(this.storageKey, JSON.stringify(d)); }
+        loadSaved() { const d = localStorage.getItem(this.storageKey); if (!d) return; try { const p = JSON.parse(d); document.querySelectorAll('.slide').forEach((s, i) => { if (p[i]) s.innerHTML = p[i]; }); } catch(e) {} }
+        exportFile() { this.save(); const h = document.documentElement.outerHTML; const b = new Blob([`<!DOCTYPE html>\n${h}`], {type:'text/html'}); const a = document.createElement('a'); a.href = URL.createObjectURL(b); a.download = 'pm-ai-era.html'; a.click(); }
+    }
+
+    const presentation = new SlidePresentation();
+    const editor = new InlineEditor();
+
+    /* DNA helix activation */
+    const dnaSlide = document.querySelector('[data-slide="1"]');
+    if (dnaSlide) {
+        new IntersectionObserver((entries) => {
+            entries.forEach(entry => { if (entry.isIntersecting) dnaSlide.querySelectorAll('.dna-node').forEach((n,i) => setTimeout(() => n.classList.add('active'), i*120)); });
+        }, { threshold: 0.3 }).observe(dnaSlide);
+    }
+
+    /* Edit hotzone */
+    const hotzone = document.getElementById('editHotzone'), editToggle = document.getElementById('editToggle');
+    let hideT = null;
+    hotzone.addEventListener('mouseenter', () => { clearTimeout(hideT); editToggle.classList.add('show'); });
+    hotzone.addEventListener('mouseleave', () => { hideT = setTimeout(() => { if (!editor.isActive) editToggle.classList.remove('show'); }, 400); });
+    editToggle.addEventListener('mouseenter', () => clearTimeout(hideT));
+    editToggle.addEventListener('mouseleave', () => { hideT = setTimeout(() => { if (!editor.isActive) editToggle.classList.remove('show'); }, 400); });
+    hotzone.addEventListener('click', () => editor.toggleEditMode());
+    editToggle.addEventListener('click', () => editor.toggleEditMode());
+    document.addEventListener('keydown', (e) => {
+        if ((e.key === 'e' || e.key === 'E') && !e.target.getAttribute('contenteditable')) editor.toggleEditMode();
+        if (e.ctrlKey && e.key === 's') { e.preventDefault(); editor.save(); }
+    });
+</script>
+
+</body>
+</html>
