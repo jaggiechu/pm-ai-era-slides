@@ -712,7 +712,7 @@
     }
 
     class InlineEditor {
-        constructor() { this.isActive = false; this.storageKey = 'pm-ai-era-v4'; ['pm-ai-era-v3','pm-ai-era-v2','pm-ai-era-edits'].forEach(k => localStorage.removeItem(k)); this.loadSaved(); }
+        constructor() { this.isActive = false; this.storageKey = 'pm-ai-era-v5'; ['pm-ai-era-v4','pm-ai-era-v3','pm-ai-era-v2','pm-ai-era-edits'].forEach(k => localStorage.removeItem(k)); this.loadSaved(); }
         toggleEditMode() {
             this.isActive = !this.isActive;
             const toggle = document.getElementById('editToggle'), bar = document.getElementById('editBar');
